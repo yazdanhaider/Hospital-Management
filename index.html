@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Advanced Hospital Management System</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="logo">HMS</div>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#appointments">Appointments</a></li>
+          <li><a href="#patients">Patients</a></li>
+          <li><a href="#doctors">Doctors</a></li>
+          <li><a href="#admin">Admin</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section id="home">
+        <h1>Welcome to Our Advanced Hospital Management System</h1>
+        <p>Efficient healthcare management at your fingertips</p>
+      </section>
+
+      <section id="appointments">
+        <h2>Book an Appointment</h2>
+        <form id="appointment-form">
+          <input
+            type="text"
+            id="patient-name"
+            placeholder="Patient Name"
+            required
+          />
+          <input type="date" id="appointment-date" required />
+          <select id="doctor-select" required>
+            <option value="">Select Doctor</option>
+          </select>
+          <textarea
+            id="appointment-notes"
+            placeholder="Any additional notes"
+          ></textarea>
+          <button type="submit">Book Appointment</button>
+        </form>
+        <div id="appointment-list">
+          <h3>Upcoming Appointments</h3>
+          <ul id="upcoming-appointments"></ul>
+        </div>
+      </section>
+
+      <section id="patients">
+        <h2>Patient Management</h2>
+        <form id="patient-form">
+          <input
+            type="text"
+            id="new-patient-name"
+            placeholder="Patient Name"
+            required
+          />
+          <input
+            type="number"
+            id="new-patient-age"
+            placeholder="Age"
+            required
+          />
+          <select id="new-patient-gender" required>
+            <option value="">Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+          </select>
+          <input
+            type="tel"
+            id="new-patient-contact"
+            placeholder="Contact Number"
+            required
+          />
+          <button type="submit">Add Patient</button>
+        </form>
+        <table id="patient-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Age</th>
+              <th>Gender</th>
+              <th>Contact</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </section>
+
+      <section id="doctors">
+        <h2>Our Doctors</h2>
+        <div id="doctor-list"></div>
+      </section>
+
+      <section id="admin">
+        <h2>Admin Panel</h2>
+        <form id="admin-login">
+          <input
+            type="text"
+            id="admin-username"
+            placeholder="Username"
+            required
+          />
+          <input
+            type="password"
+            id="admin-password"
+            placeholder="Password"
+            required
+          />
+          <button type="submit">Login</button>
+        </form>
+        <div id="admin-dashboard" style="display: none">
+          <h3>Welcome, Admin</h3>
+          <button id="generate-report">Generate PDF Report</button>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2024 Advanced Hospital Management System</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

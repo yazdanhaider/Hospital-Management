@@ -21,12 +21,15 @@ This project is an Advanced Hospital Management System (HMS) web application. It
 ## File Structure
 
 - `index.html`: Main HTML file containing the structure of the web application.
-- `style.css`: CSS file for styling the application (not included in the provided code).
-- `script.js`: JavaScript file for application logic (not included in the provided code).
+- `style.css`: CSS file for styling the application.
+- `script.js`: JavaScript file for application logic.
 
 ## Setup and Installation
 
-1. Clone the repository to your local machine.
+1. Clone the repository to your local machine:
+   ```bash
+   git clone https://github.com/yazdanhaider/Hospital-Management.git
+   ```
 2. Ensure you have a modern web browser installed.
 3. Open the `index.html` file in your web browser to run the application.
 
@@ -34,12 +37,13 @@ This project is an Advanced Hospital Management System (HMS) web application. It
 
 ### Appointment Booking
 - Navigate to the "Appointments" section.
-- Fill out the appointment form with patient details, date, and select a doctor.
+- Fill out the appointment form with patient name, date, and select a doctor.
+- Add any additional notes if needed.
 - Click "Book Appointment" to schedule.
 
 ### Patient Management
 - Go to the "Patients" section.
-- Use the form to add new patients to the system.
+- Use the form to add new patients to the system (name, age, gender, contact number).
 - View and manage existing patients in the table below.
 
 ### Viewing Doctors
@@ -54,8 +58,22 @@ This project is an Advanced Hospital Management System (HMS) web application. It
 
 Contributions to improve the HMS are welcome. Please follow these steps:
 
-1. Fork the repository.
+1. Fork the repository from  
+ ```bash
+ https://github.com/yazdanhaider/Hospital-Management/
+```
 2. Create a new branch for your feature.
 3. Commit your changes.
+ ```bash
+git commit -m "Type your message"
+```
 4. Push to the branch.
+ ```bash
+git push origin main
+```
 5. Create a new Pull Request.
+
+
+## Contact
+
+For any queries or contributions, please contact the project maintainer through the GitHub repository: https://github.com/yazdanhaider/Hospital-Management/

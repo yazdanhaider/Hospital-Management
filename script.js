@@ -1,5 +1,26 @@
 // script.js
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener('DOMContentLoaded', function() {
+  // Add smooth scrolling to all links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      document.querySelector(this.getAttribute('href')).scrollIntoView({
+        behavior: 'smooth'
+      });
+    });
+  });
+
+  // Add animation to feature cards
+  const featureCards = document.querySelectorAll('.feature-card');
+  featureCards.forEach(card => {
+    card.addEventListener('mouseenter', () => {
+      card.style.transform = 'scale(1.05)';
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'scale(1)';
+    });
+  });
+
   // Sample data (replace with actual data from backend)
   let doctors = [
     { id: 1, name: "Dr. Smith", specialty: "Cardiology", patients: 0 },
@@ -36,6 +57,9 @@ document.addEventListener("DOMContentLoaded", function () {
       option.textContent = `${doctor.name} - ${doctor.specialty}`;
       doctorSelect.appendChild(option);
     });
+
+    // Add this at the end of the function
+    doctorSelect.style.animation = 'fadeIn 0.5s';
   }
 
   // Populate patient table
@@ -56,6 +80,9 @@ document.addEventListener("DOMContentLoaded", function () {
           `;
       patientTableBody.appendChild(row);
     });
+
+    // Add this at the end of the function
+    patientTableBody.style.animation = 'fadeIn 0.5s';
   }
 
   // Populate doctor list
@@ -72,31 +99,36 @@ document.addEventListener("DOMContentLoaded", function () {
           `;
       doctorList.appendChild(card);
     });
+
+    // Add this at the end of the function
+    doctorList.style.animation = 'fadeIn 0.5s';
   }
 
   // Appointment form submission
   const appointmentForm = document.getElementById("appointment-form");
-  appointmentForm.addEventListener("submit", function (e) {
-    e.preventDefault();
-    const patientName = document.getElementById("patient-name").value;
-    const appointmentDate = document.getElementById("appointment-date").value;
-    const doctorId = document.getElementById("doctor-select").value;
-    const notes = document.getElementById("appointment-notes").value;
+  if (appointmentForm) {
+    appointmentForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const patientName = document.getElementById("patient-name").value;
+      const appointmentDate = document.getElementById("appointment-date").value;
+      const doctorId = document.getElementById("doctor-select").value;
+      const notes = document.getElementById("appointment-notes").value;
 
-    const appointment = {
-      id: appointments.length + 1,
-      patientName,
-      appointmentDate,
-      doctorId: parseInt(doctorId),
-      notes,
-    };
+      const appointment = {
+        id: appointments.length + 1,
+        patientName,
+        appointmentDate,
+        doctorId: parseInt(doctorId),
+        notes,
+      };
 
-    appointments.push(appointment);
-    updateAppointmentList();
-    updateDoctorPatients(appointment.doctorId);
-    this.reset();
-    alert("Appointment booked successfully!");
-  });
+      appointments.push(appointment);
+      updateAppointmentList();
+      updateDoctorPatients(appointment.doctorId);
+      this.reset();
+      showNotification('Appointment booked successfully!');
+    });
+  }
 
   // Update appointment list
   function updateAppointmentList() {
@@ -121,42 +153,46 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Patient form submission
   const patientForm = document.getElementById("patient-form");
-  patientForm.addEventListener("submit", function (e) {
-    e.preventDefault();
-    const name = document.getElementById("new-patient-name").value;
-    const age = document.getElementById("new-patient-age").value;
-    const gender = document.getElementById("new-patient-gender").value;
-    const contact = document.getElementById("new-patient-contact").value;
+  if (patientForm) {
+    patientForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const name = document.getElementById("new-patient-name").value;
+      const age = document.getElementById("new-patient-age").value;
+      const gender = document.getElementById("new-patient-gender").value;
+      const contact = document.getElementById("new-patient-contact").value;
 
-    const newPatient = {
-      id: patients.length + 1,
-      name,
-      age: parseInt(age),
-      gender,
-      contact,
-    };
+      const newPatient = {
+        id: patients.length + 1,
+        name,
+        age: parseInt(age),
+        gender,
+        contact,
+      };
 
-    patients.push(newPatient);
-    populatePatients();
-    this.reset();
-    alert("Patient added successfully!");
-  });
+      patients.push(newPatient);
+      populatePatients();
+      this.reset();
+      showNotification('Patient added successfully!');
+    });
+  }
 
   // Admin login form submission
   const adminLoginForm = document.getElementById("admin-login");
-  adminLoginForm.addEventListener("submit", function (e) {
-    e.preventDefault();
-    const username = document.getElementById("admin-username").value;
-    const password = document.getElementById("admin-password").value;
+  if (adminLoginForm) {
+    adminLoginForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const username = document.getElementById("admin-username").value;
+      const password = document.getElementById("admin-password").value;
 
-    // Simple check (replace with actual authentication)
-    if (username === "admin" && password === "password") {
-      document.getElementById("admin-login").style.display = "none";
-      document.getElementById("admin-dashboard").style.display = "block";
-    } else {
-      alert("Invalid credentials");
-    }
-  });
+      // Simple check (replace with actual authentication)
+      if (username === "admin" && password === "password") {
+        document.getElementById("admin-login").style.display = "none";
+        document.getElementById("admin-dashboard").style.display = "block";
+      } else {
+        showNotification("Invalid credentials", "error");
+      }
+    });
+  }
 
   // Generate PDF report
   document
@@ -191,4 +227,19 @@ function deletePatient(patientId) {
     patients = patients.filter((patient) => patient.id !== patientId);
     populatePatients();
   }
+}
+
+// Add this new function for visual feedback
+function showNotification(message, type = 'success') {
+  const notification = document.createElement('div');
+  notification.textContent = message;
+  notification.className = `notification ${type}`;
+  document.body.appendChild(notification);
+  
+  setTimeout(() => {
+    notification.style.opacity = '0';
+    setTimeout(() => {
+      document.body.removeChild(notification);
+    }, 500);
+  }, 3000);
 }

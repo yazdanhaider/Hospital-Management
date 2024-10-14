@@ -1,9 +1,10 @@
 /* styles.css */
 :root {
-  --primary-color: #4caf50;
-  --secondary-color: #45a049;
+  --primary-color: #3498db;
+  --secondary-color: #2ecc71;
   --text-color: #333;
   --background-color: #f4f4f4;
+  --card-background: #ffffff;
 }
 
 * {
@@ -13,7 +14,7 @@
 }
 
 body {
-  font-family: "Arial", sans-serif;
+  font-family: 'Arial', sans-serif;
   line-height: 1.6;
   color: var(--text-color);
   background-color: var(--background-color);
@@ -35,8 +36,15 @@ nav {
 }
 
 .logo {
+  display: flex;
+  align-items: center;
   font-size: 1.5rem;
   font-weight: bold;
+}
+
+.logo i {
+  font-size: 2rem;
+  margin-right: 10px;
 }
 
 nav ul {
@@ -54,8 +62,8 @@ nav ul li a {
   transition: color 0.3s ease;
 }
 
-nav ul li a:hover {
-  color: #e0e0e0;
+nav ul li a:hover, nav ul li a.active {
+  color: var(--secondary-color);
 }
 
 main {
@@ -65,17 +73,31 @@ main {
 }
 
 section {
-  background-color: white;
+  background-color: var(--card-background);
   margin-bottom: 30px;
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-h1,
-h2,
-h3 {
+h1, h2, h3 {
   margin-bottom: 15px;
+}
+
+.btn {
+  display: inline-block;
+  background-color: var(--primary-color);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background-color: var(--secondary-color);
 }
 
 form {
@@ -85,26 +107,11 @@ form {
   margin-bottom: 20px;
 }
 
-input,
-select,
-textarea,
-button {
+input, select, textarea {
   margin-bottom: 10px;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
-}
-
-button {
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: var(--secondary-color);
 }
 
 table {
@@ -113,8 +120,7 @@ table {
   margin-top: 20px;
 }
 
-table th,
-table td {
+table th, table td {
   border: 1px solid #ddd;
   padding: 12px;
   text-align: left;
@@ -125,22 +131,36 @@ table th {
   color: white;
 }
 
-#doctor-list {
+#doctor-grid, .feature-grid, .stat-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
 }
 
-.doctor-card {
-  background-color: white;
+.doctor-card, .feature-card, .stat-card {
+  background-color: var(--card-background);
   border: 1px solid #ddd;
   border-radius: 5px;
   padding: 15px;
+  text-align: center;
   transition: box-shadow 0.3s ease;
 }
 
-.doctor-card:hover {
+.doctor-card:hover, .feature-card:hover, .stat-card:hover {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.doctor-card img, .feature-card i, .stat-card i {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.feature-card i, .stat-card i {
+  font-size: 3rem;
+  color: var(--primary-color);
 }
 
 footer {
@@ -151,6 +171,22 @@ footer {
   position: fixed;
   bottom: 0;
   width: 100%;
+}
+
+#hero, #appointments-hero, #patients-hero, #doctors-hero, #admin-hero {
+  background-image: url('path/to/hero-image.jpg');
+  background-size: cover;
+  background-position: center;
+  color: white;
+  text-align: center;
+  padding: 100px 0;
+  margin-bottom: 30px;
+}
+
+.hero-content {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  border-radius: 5px;
 }
 
 @media (max-width: 768px) {

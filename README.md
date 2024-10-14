@@ -1,6 +1,7 @@
 # Advanced Hospital Management System
 <img width="1436" alt="Screenshot 2024-10-14 at 10 21 02 PM" src="https://github.com/user-attachments/assets/eaf55691-d541-4741-9186-ded75521782f">
-## Overview
+
+# Overview
 
 This project is an Advanced Hospital Management System (HMS) web application. It provides a user-friendly interface for managing hospital operations, including appointment booking, patient management, and doctor information.
 

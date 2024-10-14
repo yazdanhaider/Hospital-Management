@@ -26,51 +26,62 @@ We're glad you're interested in contributing to the Advanced Hospital Management
 
 ## How to Contribute
 
-1. Ensure your code adheres to the project's coding standards.
-2. Make your changes in your feature branch.
-3. Test your changes thoroughly.
-4. Commit your changes with a clear and descriptive commit message.
-5. Push your changes to your fork on GitHub.
-6. Submit a pull request to the main repository.
+1. **Make Changes:** Develop your changes in the feature branch.
+
+2. **Test the Application:**
+   - Run the application locally.
+   - Verify that existing features work correctly.
+   - Test your new changes thoroughly.
+
+3. **Ensure Adherence to Coding Standards:** Follow the coding guidelines provided below.
+
+4. **Commit Changes:** Use a descriptive commit message.
+
+5. **Push to Your Fork:**
+   Push the changes to your GitHub fork:
+   ```
+   git push origin feature/your-feature-name
+   ```
+
+6. **Open a Pull Request:** Submit a pull request to the main repository.
 
 ## Coding Standards
 
-- Use meaningful variable and function names.
-- Follow consistent indentation (we recommend using 2 spaces).
-- Write clear comments for complex logic.
-- Ensure your code is compatible with modern web browsers.
+- **General Guidelines:**
+  - Use meaningful and descriptive names for variables and functions.
+  - Follow consistent indentation (recommended: 2 spaces).
+  - Add comments for complex or critical sections of code.
+  - Make sure the code is compatible with modern web browsers.
 
-### HTML
-- Use semantic HTML5 elements where appropriate.
-- Ensure proper nesting of elements.
+- **HTML:**
+  - Use semantic HTML5 elements where appropriate.
+  - Maintain proper tag nesting and closing.
 
-### CSS
-- Use consistent naming conventions for classes and IDs.
-- Organize CSS properties in a logical order.
+- **CSS:**
+  - Follow a consistent naming convention for class and ID selectors.
+  - Group related CSS properties together.
 
-### JavaScript
-- Follow ES6+ standards where possible.
-- Use meaningful variable and function names.
-- Avoid global variables; use modules or namespaces.
+- **JavaScript (React):**
+  - Use ES6+ standards where applicable.
+  - Avoid global variables; use modules or components to en
 
 ## Submitting Changes
 
-1. Push your changes to your fork on GitHub.
-2. From your fork, open a new pull request in the main repository.
-3. Clearly describe the problem and solution. Include the relevant issue number if applicable.
-4. Wait for the maintainers to review your pull request. Make changes if requested.
+1. **Push Changes to Your Fork:** Push the branch to your forked repository.
+2. **Open a Pull Request:** Submit a pull request with a clear description of the changes.
+3. **Provide Details:** Explain the problem solved or feature added and reference relevant issue numbers if applicable.
+4. **Review Feedback:** Be prepared to make additional changes if requested.
 
 ## Reporting Bugs
 
-1. Check the GitHub Issues to see if the bug has already been reported.
-2. If not, create a new issue. Provide a clear title and description of the bug.
-3. Include as much relevant information as possible, and a code sample or an executable test case demonstrating the bug.
+1. **Check Existing Issues:** Look at the Issues section to see if the bug has already been reported.
+2. **Create a New Issue:** If not found, create a new issue with a clear title and detailed description.
+3. **Include Steps to Reproduce:** Provide steps and any relevant code snippets.
 
 ## Requesting Features
 
-1. Check the GitHub Issues to see if the feature has already been requested.
-2. If not, create a new issue. Clearly describe the feature and its potential benefits.
-3. Wait for feedback from the maintainers. The feature may be approved, denied, or need more discussion.
+1. **Review Existing Feature Requests:** Check if the feature has already been suggested.
+2. **Open a New Feature Request:** If not, submit a new feature request with a clear description and potential benefits.
 
 ## Code of Conduct
 

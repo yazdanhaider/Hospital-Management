@@ -1,6 +1,6 @@
 # HealthHub - Advanced Hospital Management System
 
-HealthHub is a comprehensive web-based hospital management system designed to streamline healthcare operations and improve patient care. This system provides an intuitive interface for managing appointments, patient records, doctor information, and administrative tasks.
+HealthHub is a comprehensive React-based hospital management system designed to streamline healthcare operations and improve patient care. This system provides an intuitive interface for managing appointments, patient records, doctor information, and administrative tasks.
 
 ## Features
 
@@ -21,9 +21,10 @@ HealthHub is a comprehensive web-based hospital management system designed to st
 
 ## Technologies Used
 
+- React.js
+- JavaScript (ES6+)
 - HTML5
 - CSS3
-- JavaScript (ES6+)
 - Font Awesome for icons
 - jsPDF for PDF report generation
 
@@ -31,13 +32,20 @@ HealthHub is a comprehensive web-based hospital management system designed to st
 
 1. Clone the repository:
    ```
-   git clone https://github.com/your-username/healthhub.git
+   git clone https://github.com/yazdanhaider/Hospital-Management.git
    ```
 2. Navigate to the project directory:
    ```
-   cd healthhub
+   cd Hospital-Management
    ```
-3. Open `index.html` in your web browser to view the application.
+3. Install dependencies:
+   ```
+   npm i
+   ```
+4. Run the development server:
+   ```
+   npm run dev
+   ```
 
 ## Usage
 
@@ -52,10 +60,26 @@ HealthHub is a comprehensive web-based hospital management system designed to st
 Contributions to improve HealthHub are welcome. Please follow these steps to contribute:
 
 1. Fork the repository
-2. Create a new branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+2. Make your changes
+3. Test the web application manually:
+   - Run the application locally
+   - Verify that all previous functionality is working correctly
+   - Test your new changes thoroughly
+4. If no bugs are found, stage your changes:
+   ```
+   git add .
+   ```
+5. Commit your changes with a descriptive message:
+   ```
+   git commit -m "Add some AmazingFeature"
+   ```
+6. Push to your forked repository:
+   ```
+   git push origin feature/AmazingFeature
+   ```
+7. Open a Pull Request on the original repository
+
+Please ensure that your code adheres to the project's coding standards and includes appropriate documentation.
 
 ## License
 
@@ -63,11 +87,10 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Contact
 
-Your Name - your.email@example.com
-
-Project Link: [https://github.com/your-username/healthhub](https://github.com/your-username/healthhub)
+Project Link: https://github.com/yazdanhaider/Hospital-Management/
 
 ## Acknowledgements
 
+- [React](https://reactjs.org/)
 - [Font Awesome](https://fontawesome.com)
 - [jsPDF](https://github.com/MrRio/jsPDF)

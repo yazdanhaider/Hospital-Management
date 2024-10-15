@@ -96,6 +96,8 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 Project Link: https://github.com/yazdanhaider/Hospital-Management/
 
+[![Star History Chart](https://api.star-history.com/svg?repos=yazdanhaider/Hospital-Management&type=Date)](https://star-history.com/#yazdanhaider/Food-Delivery&Date)
+
 ## Acknowledgements
 
 - [React](https://reactjs.org/)

@@ -4,7 +4,7 @@ import { useMediaQuery } from "../hooks/useMediaQuery";
 
 const Header = () => {
     const isTablet = useMediaQuery("only screen and (max-width: 768px)");
-    const [isMenuOpen, setIsMenuOpen] = useState(false);// Use useNavigate instead of useHistory
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -13,7 +13,12 @@ const Header = () => {
     return (
         <header className="bg-gradient-to-r from-green-500 to-green-700 text-white p-4 sticky top-0 z-10 shadow-lg transition duration-300">
             <nav className="flex justify-between items-center">
-                <div className="text-lg font-bold transition-transform transform hover:scale-105">HMS</div>
+                <div className="text-lg font-bold transition-transform transform hover:scale-105">
+                    {/* Wrap HMS with a Link component */}
+                    <Link to="/" className="hover:text-gray-300 transition duration-300">
+                        HMS
+                    </Link>
+                </div>
                 {isTablet ? (
                     <>
                         <button onClick={toggleMenu} className="focus:outline-none">

@@ -1,6 +1,6 @@
 // pages/api/auth/signup.js
-import { dbConnect } from '../../../utils/dbConnect'; // Import the dbConnect function
-import User from '../../../models/User'; // Ensure you have this User model
+import { dbConnect } from '../../../../utils/dbConnect'; // Import the dbConnect function
+import User from '../../../../models/User'; // Ensure you have this User model
 import bcrypt from 'bcrypt';
 
 export default async function handler(req, res) {

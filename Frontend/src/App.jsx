@@ -1,4 +1,4 @@
-// import React from 'react';
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Home from './components/Home';
@@ -8,6 +8,8 @@ import Doctors from './components/Doctors';
 import Admin from './components/Admin';
 import Footer from './components/Footer';
 import DoctorProfile from './components/DoctorProfile'
+import NotFound from "./components/NotFound";
+
 
 function App() {
 
@@ -38,6 +40,7 @@ function App() {
             <Route path="/patients" element={<Patients />} />
             <Route path="/doctors" element={<Doctors />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
         <Footer />
@@ -45,6 +48,5 @@ function App() {
     </Router>
   );
 }
-
 
 export default App;

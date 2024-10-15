@@ -7,8 +7,11 @@ import Patients from './components/Patients';
 import Doctors from './components/Doctors';
 import Admin from './components/Admin';
 import Footer from './components/Footer';
+
 import DoctorProfile from './components/DoctorProfile'
+
 import NotFound from "./components/NotFound";
+import ScrollToTopButton from "./components/ScrollToTopButton";
 
 
 function App() {
@@ -43,6 +46,7 @@ function App() {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
+        <ScrollToTopButton/>
         <Footer />
       </div>
     </Router>

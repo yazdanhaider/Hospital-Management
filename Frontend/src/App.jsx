@@ -1,13 +1,13 @@
-// import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Header from "./components/Header";
-import Home from "./components/Home";
-import Appointments from "./components/Appointments";
-import Patients from "./components/Patients";
-import Doctors from "./components/Doctors";
-import Admin from "./components/Admin";
-import Footer from "./components/Footer";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Header from './components/Header';
+import Home from './components/Home';
+import Appointments from './components/Appointments';
+import Patients from './components/Patients';
+import Doctors from './components/Doctors';
+import Admin from './components/Admin';
+import Footer from './components/Footer';
 import NotFound from "./components/NotFound";
+import ScrollToTopButton from "./components/ScrollToTopButton";
 
 function App() {
   return (
@@ -24,6 +24,7 @@ function App() {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
+        <ScrollToTopButton/>
         <Footer />
       </div>
     </Router>

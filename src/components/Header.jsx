@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"; // Update import
 import { useMediaQuery } from "../hooks/useMediaQuery";
 
 const Header = () => {
     const isTablet = useMediaQuery("only screen and (max-width: 768px)");
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);// Use useNavigate instead of useHistory
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);

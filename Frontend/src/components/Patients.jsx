@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import axios from 'axios'; // Ensure you have axios installed
 
 const Patients = () => {
     const [patients, setPatients] = useState([
@@ -9,6 +10,43 @@ const Patients = () => {
     const [age, setAge] = useState('');
     const [gender, setGender] = useState('');
     const [contact, setContact] = useState('');
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isSignup, setIsSignup] = useState(false); // New state to toggle signup
+
+    // Handle login form submission
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post('/api/auth/login', { username, password });
+            if (response.data.success) {
+                setIsLoggedIn(true);
+            } else {
+                alert('Invalid credentials');
+            }
+        } catch (error) {
+            console.error("Login error:", error);
+            alert('Login failed. Please try again.');
+        }
+    };
+
+    // Handle signup form submission
+    const handleSignup = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post('/api/auth/signup', { username, password });
+            if (response.data.success) {
+                alert('Signup successful! Please log in.');
+                setIsSignup(false); // Switch back to login form after signup
+            } else {
+                alert('Signup failed. Please try again.');
+            }
+        } catch (error) {
+            console.error("Signup error:", error);
+            alert('Signup failed. Please try again.');
+        }
+    };
 
     // Handle patient form submission
     const handleSubmit = (e) => {
@@ -41,9 +79,49 @@ const Patients = () => {
         }
     };
 
+    const handleLogout = () => {
+        setIsLoggedIn(false);
+        resetForm(); // Optional: Reset form fields on logout
+        setUsername('');
+        setPassword('');
+    };
+
     return (
         <section className="bg-gray-100 p-6 rounded-lg shadow-lg max-w-md mx-auto mb-14">
             <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Patient Management</h2>
+            <form id="patient-login" className="flex flex-col space-y-4 mb-6" onSubmit={isSignup ? handleSignup : handleLogin}>
+                <input
+                    type="text"
+                    className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                    placeholder="Username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    required
+                />
+                <input
+                    type="password"
+                    className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                />
+                <button type="submit" className="bg-green-600 text-white p-3 rounded-lg hover:bg-green-500 transition duration-200">
+                    {isSignup ? 'Sign Up' : 'Login'}
+                </button>
+                <p className="text-center mt-4">
+                    {isSignup ? 'Already have an account?' : "Don't have an account?"}
+                    <button
+                        type="button"
+                        onClick={() => setIsSignup(!isSignup)}
+                        className="text-blue-600 underline ml-1"
+                    >
+                        {isSignup ? 'Login' : 'Sign Up'}
+                    </button>
+                </p>
+            </form>
+
+            {/* Patient management form, always visible */}
             <form id="patient-form" className="space-y-4" onSubmit={handleSubmit}>
                 <input
                     type="text"
@@ -115,6 +193,13 @@ const Patients = () => {
                     ))}
                 </tbody>
             </table>
+
+            <button
+                onClick={handleLogout}
+                className="mt-4 text-red-600 hover:underline"
+            >
+                Logout
+            </button>
         </section>
     );
 };

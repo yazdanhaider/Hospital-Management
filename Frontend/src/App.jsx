@@ -21,7 +21,6 @@ function App() {
             <Route path="/patients" element={<Patients />} />
             <Route path="/doctors" element={<Doctors />} />
             <Route path="/admin" element={<Admin />} />
-            {/*  Catching All other routes */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>

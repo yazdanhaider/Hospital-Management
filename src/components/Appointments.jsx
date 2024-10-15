@@ -14,7 +14,41 @@ const Appointments = () => {
 	const [notes, setNotes] = useState('');
 	const [appointments, setAppointments] = useState([]);
 
+	const validation = () => {
+		const nameRegex = /^[a-zA-Z\s]{2,}$/;
+		const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+		const doctorIdRegex = /^\d+$/;
+		const notesRegex = /^[a-zA-Z0-9\s]{5,}$/;
+	
+		if (!nameRegex.test(patientName)) {
+			alert("Invalid patient name. Only letters and spaces are allowed, and it should have at least 2 characters.");
+			return false;
+		}
+	
+		if (!dateRegex.test(appointmentDate)) {
+			alert("Invalid appointment date. Please enter in YYYY-MM-DD format.");
+			return false;
+		}
+	
+		if (!doctorIdRegex.test(doctorId)) {
+			alert("Invalid doctor ID. Only numeric values are allowed.");
+			return false;
+		}
+	
+		if (notes && !notesRegex.test(notes)) {
+			alert("Invalid notes. Only letters, numbers, and spaces are allowed, and it should have at least 5 characters.");
+			return false;
+		}
+	
+		return true;
+	};
+	
+
 	const handleSubmit = (e) => {
+		if(!validation()) {
+			return;
+		}
+		
 		e.preventDefault();
 		const appointment = {
 			id: appointments.length + 1,

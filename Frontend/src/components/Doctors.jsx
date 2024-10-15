@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
+import {  useNavigate } from 'react-router-dom';
 
 const Doctors = () => {
-    const [doctors, setDoctors] = useState([
-        { id: 1, name: "Dr. Smith", specialty: "Cardiology", patients: 0 },
-        { id: 2, name: "Dr. Johnson", specialty: "Pediatrics", patients: 0 },
-        { id: 3, name: "Dr. Williams", specialty: "Orthopedics", patients: 0 },
-        { id: 4, name: "Dr. Brown", specialty: "Neurology", patients: 0 },
-        { id: 5, name: "Dr. Taylor", specialty: "Dermatology", patients: 0 },
-        { id: 6, name: "Dr. Wilson", specialty: "General Medicine", patients: 0 },
-    ]);
+    const navigate = useNavigate();
+        const [doctors, setDoctors] = useState([
+            { id: 1, name: "Dr. Smith", specialty: "Cardiology", patients: 0 },
+            { id: 2, name: "Dr. Johnson", specialty: "Pediatrics", patients: 0 },
+            { id: 3, name: "Dr. Williams", specialty: "Orthopedics", patients: 0 },
+            { id: 4, name: "Dr. Brown", specialty: "Neurology", patients: 0 },
+            { id: 5, name: "Dr. Taylor", specialty: "Dermatology", patients: 0 },
+            { id: 6, name: "Dr. Wilson", specialty: "General Medicine", patients: 0 },
+        ]);
 
     return (
         <section className="bg-gray-100 p-6 rounded-lg shadow-lg max-w-6xl mx-auto mt-10">
@@ -20,7 +22,7 @@ const Doctors = () => {
                         <p className="text-gray-600">Specialty: {doctor.specialty}</p>
                         <p className="text-gray-600">Patients: {doctor.patients}</p>
                         <button
-                            onClick={() => alert(`More about ${doctor.name}`)}
+                            onClick={() => navigate('/profile')}
                             className="mt-4 w-full bg-green-600 text-white p-2 rounded-lg hover:bg-green-500 transition duration-200"
                         >
                             View Details

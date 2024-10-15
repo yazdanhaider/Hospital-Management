@@ -27,6 +27,9 @@ HealthHub is a comprehensive React-based hospital management system designed to 
 - CSS3
 - Font Awesome for icons
 - jsPDF for PDF report generation
+  
+## Backend server 
+- Backend is deployed on `https://hospital-management-server-zeta.vercel.app/`
 
 ## Setup and Installation
 

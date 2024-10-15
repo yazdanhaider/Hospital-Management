@@ -7,6 +7,8 @@ import Patients from './components/Patients';
 import Doctors from './components/Doctors';
 import Admin from './components/Admin';
 import Footer from './components/Footer';
+import ScrollToTopButton from "./components/ScrollToTopButton";
+
 
 function App() {
   return (
@@ -22,6 +24,7 @@ function App() {
             <Route path="/admin" element={<Admin />} />
           </Routes>
         </main>
+        <ScrollToTopButton/>
         <Footer />
       </div>
     </Router>

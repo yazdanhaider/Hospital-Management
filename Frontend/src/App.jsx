@@ -7,6 +7,7 @@ import Patients from './components/Patients';
 import Doctors from './components/Doctors';
 import Admin from './components/Admin';
 import Footer from './components/Footer';
+import Signup from './components/Signup';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="/patients" element={<Patients />} />
             <Route path="/doctors" element={<Doctors />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/register" element={<Signup />} />
           </Routes>
         </main>
         <Footer />

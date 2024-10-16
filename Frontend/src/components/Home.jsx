@@ -15,10 +15,10 @@ const Home = () => {
 
     return (
         <div className="bg-light min-h-screen">
-            <section className="hero bg-primary text-light py-20 px-4 rounded-3xl mx-4 mt-4">
+            <section className="hero bg-primary text-light py-12 sm:py-20 px-4 rounded-3xl mx-2 sm:mx-4 mt-4">
                 <div className="container mx-auto text-center">
                     <motion.h1 
-                        className="text-4xl md:text-6xl font-bold mb-4"
+                        className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4"
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5 }}
@@ -26,7 +26,7 @@ const Home = () => {
                         Welcome to Health Nest
                     </motion.h1>
                     <motion.p 
-                        className="text-xl mb-8"
+                        className="text-lg sm:text-xl mb-8"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.2 }}
@@ -45,10 +45,10 @@ const Home = () => {
                 </div>
             </section>
 
-            <section className="features py-20">
+            <section className="features py-12 sm:py-20">
                 <div className="container mx-auto px-4">
-                    <h2 className="text-3xl font-bold text-center mb-12 text-primary">Our Features</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12 text-primary">Our Features</h2>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                         {features.map((feature, index) => (
                             <motion.div 
                                 key={index} 
@@ -57,9 +57,9 @@ const Home = () => {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5, delay: index * 0.1 }}
                             >
-                                <feature.icon className="text-5xl text-accent mb-4 mx-auto" />
-                                <h3 className="text-xl font-semibold mb-2 text-primary">{feature.title}</h3>
-                                <p className="text-gray-600">{feature.description}</p>
+                                <feature.icon className="text-4xl sm:text-5xl text-accent mb-4 mx-auto" />
+                                <h3 className="text-lg sm:text-xl font-semibold mb-2 text-primary">{feature.title}</h3>
+                                <p className="text-gray-600 text-sm sm:text-base">{feature.description}</p>
                             </motion.div>
                         ))}
                     </div>

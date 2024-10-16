@@ -78,10 +78,10 @@ const Appointments = () => {
 	);
 
 	return (
-		<div className="bg-light min-h-screen p-8">
-			<h1 className="text-4xl font-bold text-primary mb-8">Appointment Management</h1>
+		<div className="bg-light min-h-screen p-4 sm:p-8">
+			<h1 className="text-3xl sm:text-4xl font-bold text-primary mb-6 sm:mb-8">Appointment Management</h1>
 			
-			<div className="mb-8 flex justify-between items-center">
+			<div className="mb-6 sm:mb-8 flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
 				<motion.button
 					whileHover={{ scale: 1.05 }}
 					whileTap={{ scale: 0.95 }}
@@ -91,12 +91,12 @@ const Appointments = () => {
 					<FaCalendarPlus className="mr-2" />
 					{showForm ? 'Cancel' : 'New Appointment'}
 				</motion.button>
-				<div className="relative">
+				<div className="relative w-full sm:w-auto">
 					<FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
 					<input
 						type="text"
 						placeholder="Search appointments..."
-						className="pl-10 pr-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-accent"
+						className="w-full sm:w-64 pl-10 pr-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-accent"
 						value={searchTerm}
 						onChange={(e) => setSearchTerm(e.target.value)}
 					/>

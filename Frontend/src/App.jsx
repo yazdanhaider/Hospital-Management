@@ -1,48 +1,50 @@
-
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Home from './components/Home';
 import Appointments from './components/Appointments';
 import Patients from './components/Patients';
 import Doctors from './components/Doctors';
+import DoctorProfile from './components/DoctorProfile';
 import Admin from './components/Admin';
 import Footer from './components/Footer';
-
-import DoctorProfile from './components/DoctorProfile'
-
 import NotFound from "./components/NotFound";
 import ScrollToTopButton from "./components/ScrollToTopButton";
-
+import AboutUs from './pages/AboutUs';
+import Services from './pages/Services';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfService from './pages/TermsOfService';
+import ContactUs from './pages/ContactUs';
+import SignUp from './components/SignUp';
+import { useState } from 'react';
 
 function App() {
+  const [doctors, setDoctors] = useState([
+    { id: 1, name: "Dr. Smith", specialty: "Cardiology", patients: 120, appointments: 450, experience: 15, qualifications: "MD, FACC", image: "https://randomuser.me/api/portraits/men/1.jpg", bio: "Dr. Smith is a renowned cardiologist with over 15 years of experience in treating complex heart conditions." },
+    { id: 2, name: "Dr. Johnson", specialty: "Pediatrics", patients: 200, appointments: 600, experience: 10, qualifications: "MD, FAAP", image: "https://randomuser.me/api/portraits/women/2.jpg", bio: "Dr. Johnson is a compassionate pediatrician dedicated to providing comprehensive care for children of all ages." },
+    { id: 3, name: "Dr. Williams", specialty: "Orthopedics", patients: 150, appointments: 500, experience: 12, qualifications: "MD, FAAOS", image: "https://randomuser.me/api/portraits/men/3.jpg", bio: "Dr. Williams specializes in sports medicine and joint replacement surgeries, helping patients regain mobility and improve their quality of life." },
+    { id: 4, name: "Dr. Brown", specialty: "Neurology", patients: 100, appointments: 350, experience: 18, qualifications: "MD, PhD", image: "https://randomuser.me/api/portraits/women/4.jpg", bio: "Dr. Brown is a leading neurologist with expertise in treating a wide range of neurological disorders and conducting groundbreaking research." },
+    { id: 5, name: "Dr. Taylor", specialty: "Dermatology", patients: 180, appointments: 550, experience: 8, qualifications: "MD, FAAD", image: "https://randomuser.me/api/portraits/men/5.jpg", bio: "Dr. Taylor is a skilled dermatologist specializing in both medical and cosmetic dermatology, helping patients achieve healthy and beautiful skin." },
+    { id: 6, name: "Dr. Wilson", specialty: "General Medicine", patients: 250, appointments: 700, experience: 20, qualifications: "MD, FACP", image: "https://randomuser.me/api/portraits/women/6.jpg", bio: "Dr. Wilson is an experienced general practitioner providing comprehensive primary care and preventive medicine for patients of all ages." },
+  ]);
 
-  const doctor = {
-    name: "Dr. Smith",
-    specialization: "Cardiologist",
-    experience: 15,
-    degrees: ["MBBS", "MD Cardiology", "PhD in Cardiovascular Medicine"],
-    bio: "Dr. Smith is a renowned cardiologist with over 15 years of experience. He specializes in diagnosing and treating heart-related ailments and has been recognized for his contributions to the field of cardiovascular medicine.",
-    image: "https://imgs.search.brave.com/M0rIpTEVNJIFqzat4f5ZKBrLIZ69zwSoLsL3LhSeVQg/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/cHJlbWl1bS1waG90/by9tYWxlLWRvY3Rv/ci1jYXJ0b29uLWlt/YWdlLWlzb2xhdGVk/LXdoaXRlXzc3Njg5/NC0xMTY1MzMuanBn/P3NpemU9NjI2JmV4/dD1qcGc", // Replace with actual image URL
-  };
   return (
     <Router>
-      <div className="bg-gray-100 min-h-screen font-sans">
+      <div className="bg-light min-h-screen font-sans text-primary">
         <Header />
-        <main className="max-w-4xl mx-auto p-6 transition-all duration-300">
+        <main className="container mx-auto px-4 py-8">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/appointments" element={<Appointments />} />
-            <Route path="/profile" element={<DoctorProfile
-                          name={doctor.name}
-                          specialization={doctor.specialization}
-                          experience={doctor.experience}
-                          degrees={doctor.degrees}
-                          bio={doctor.bio}
-                          image={doctor.image}
-            />} />
             <Route path="/patients" element={<Patients />} />
-            <Route path="/doctors" element={<Doctors />} />
+            <Route path="/doctors" element={<Doctors doctors={doctors} />} />
+            <Route path="/doctor/:id" element={<DoctorProfile doctors={doctors} />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/about-us" element={<AboutUs />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms-of-service" element={<TermsOfService />} />
+            <Route path="/contact-us" element={<ContactUs />} />
+            <Route path="/signup" element={<SignUp />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>

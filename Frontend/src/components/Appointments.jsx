@@ -1,142 +1,197 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { FaCalendarPlus, FaSearch, FaEdit, FaTrash, FaCheckCircle } from 'react-icons/fa';
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
+import { useLocation } from 'react-router-dom';
 
 const Appointments = () => {
-	const initialDoctors = [
-		{ id: 1, name: "Dr. Smith", specialty: "Cardiology", patients: 0 },
-		{ id: 2, name: "Dr. Johnson", specialty: "Pediatrics", patients: 0 },
-		{ id: 3, name: "Dr. Williams", specialty: "Orthopedics", patients: 0 },
-	];
-
-	const [doctors, setDoctors] = useState(initialDoctors);
-	const [patientName, setPatientName] = useState('');
-	const [appointmentDate, setAppointmentDate] = useState('');
-	const [doctorId, setDoctorId] = useState('');
-	const [notes, setNotes] = useState('');
 	const [appointments, setAppointments] = useState([]);
+	const [doctors, setDoctors] = useState([]);
+	const [showForm, setShowForm] = useState(false);
+	const [searchTerm, setSearchTerm] = useState('');
+	const [newAppointment, setNewAppointment] = useState({
+		patientName: '',
+		doctorId: '',
+		appointmentDate: new Date(),
+		notes: ''
+	});
 
-	const validation = () => {
-		const nameRegex = /^[a-zA-Z\s]{2,}$/;
-		const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
-		const doctorIdRegex = /^\d+$/;
-		const notesRegex = /^[a-zA-Z0-9\s]{5,}$/;
-	
-		if (!nameRegex.test(patientName)) {
-			alert("Invalid patient name. Only letters and spaces are allowed, and it should have at least 2 characters.");
-			return false;
+	const location = useLocation();
+	const queryParams = new URLSearchParams(location.search);
+	const selectedDoctorId = queryParams.get('doctorId');
+
+	useEffect(() => {
+		// Simulating fetching doctors from an API
+		setDoctors([
+			{ id: 1, name: "Dr. Smith", specialty: "Cardiology" },
+			{ id: 2, name: "Dr. Johnson", specialty: "Pediatrics" },
+			{ id: 3, name: "Dr. Williams", specialty: "Orthopedics" },
+		]);
+
+		// Simulating fetching appointments from an API
+		setAppointments([
+			{ id: 1, patientName: "John Doe", doctorId: 1, appointmentDate: new Date(), notes: "Regular checkup", status: "Scheduled" },
+			{ id: 2, patientName: "Jane Smith", doctorId: 2, appointmentDate: new Date(Date.now() + 86400000), notes: "Follow-up", status: "Scheduled" },
+		]);
+
+		if (selectedDoctorId) {
+			setNewAppointment(prev => ({ ...prev, doctorId: selectedDoctorId }));
+			setShowForm(true);
 		}
-	
-		if (!dateRegex.test(appointmentDate)) {
-			alert("Invalid appointment date. Please enter in YYYY-MM-DD format.");
-			return false;
-		}
-	
-		if (!doctorIdRegex.test(doctorId)) {
-			alert("Invalid doctor ID. Only numeric values are allowed.");
-			return false;
-		}
-	
-		if (notes && !notesRegex.test(notes)) {
-			alert("Invalid notes. Only letters, numbers, and spaces are allowed, and it should have at least 5 characters.");
-			return false;
-		}
-	
-		return true;
+	}, [selectedDoctorId]);
+
+	const handleInputChange = (e) => {
+		const { name, value } = e.target;
+		setNewAppointment(prev => ({ ...prev, [name]: value }));
 	};
-	
+
+	const handleDateChange = (date) => {
+		setNewAppointment(prev => ({ ...prev, appointmentDate: date }));
+	};
 
 	const handleSubmit = (e) => {
-		if(!validation()) {
-			return;
-		}
-		
 		e.preventDefault();
 		const appointment = {
 			id: appointments.length + 1,
-			patientName,
-			appointmentDate,
-			doctorId: parseInt(doctorId),
-			notes,
+			...newAppointment,
+			status: "Scheduled"
 		};
-
 		setAppointments([...appointments, appointment]);
-		updateDoctorPatients(doctorId);
-		resetForm();
-		alert("Appointment booked successfully!");
+		setNewAppointment({ patientName: '', doctorId: '', appointmentDate: new Date(), notes: '' });
+		setShowForm(false);
 	};
 
-	const updateDoctorPatients = (doctorId) => {
-		setDoctors((prevDoctors) =>
-			prevDoctors.map((doctor) =>
-				doctor.id === parseInt(doctorId) ? { ...doctor, patients: doctor.patients + 1 } : doctor
-			)
-		);
+	const deleteAppointment = (id) => {
+		setAppointments(appointments.filter(appointment => appointment.id !== id));
 	};
 
-	const resetForm = () => {
-		setPatientName('');
-		setAppointmentDate('');
-		setDoctorId('');
-		setNotes('');
+	const completeAppointment = (id) => {
+		setAppointments(appointments.map(appointment => 
+			appointment.id === id ? { ...appointment, status: "Completed" } : appointment
+		));
 	};
+
+	const filteredAppointments = appointments.filter(appointment =>
+		appointment.patientName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+		doctors.find(d => d.id === appointment.doctorId)?.name.toLowerCase().includes(searchTerm.toLowerCase())
+	);
 
 	return (
-		<section className="bg-gray-100 p-6 rounded-lg shadow-lg max-w-md mx-auto mt-10">
-			<h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Book an Appointment</h2>
-			<form id="appointment-form" className="space-y-4" onSubmit={handleSubmit}>
-				<input
-					type="text"
-					className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-					placeholder="Patient Name"
-					value={patientName}
-					onChange={(e) => setPatientName(e.target.value)}
-					required
-				/>
-				<input
-					type="date"
-					className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-					value={appointmentDate}
-					onChange={(e) => setAppointmentDate(e.target.value)}
-					required
-				/>
-				<select
-					className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-					value={doctorId}
-					onChange={(e) => setDoctorId(e.target.value)}
-					required
+		<div className="bg-light min-h-screen p-8">
+			<h1 className="text-4xl font-bold text-primary mb-8">Appointment Management</h1>
+			
+			<div className="mb-8 flex justify-between items-center">
+				<motion.button
+					whileHover={{ scale: 1.05 }}
+					whileTap={{ scale: 0.95 }}
+					className="bg-accent text-primary px-6 py-2 rounded-full font-bold flex items-center"
+					onClick={() => setShowForm(!showForm)}
 				>
-					<option value="">Select Doctor</option>
-					{doctors.map((doctor) => (
-						<option key={doctor.id} value={doctor.id}>
-							{doctor.name} - {doctor.specialty}
-						</option>
-					))}
-				</select>
-				<textarea
-					className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-					placeholder="Any additional notes"
-					value={notes}
-					onChange={(e) => setNotes(e.target.value)}
-				></textarea>
-				<button type="submit" className="w-full bg-green-600 text-white p-3 rounded-lg hover:bg-green-500 transition duration-200">
-					Book Appointment
-				</button>
-			</form>
-			{appointments.length > 0 &&
-				<>
-					<h3 className="text-lg font-semibold mt-6 text-gray-800">Upcoming Appointments</h3>
-					<ul className="mt-2 space-y-2">
-						{appointments.map((appointment) => (
-							<li key={appointment.id} className="border-b py-2 text-gray-700">
-								{appointment.patientName} - {appointment.appointmentDate} with
-								<span className="font-semibold ml-1">
-									{doctors.find((doc) => doc.id === appointment.doctorId)?.name}
-								</span>
-							</li>
-						))}
-					</ul>
-				</>
-			}
-		</section>
+					<FaCalendarPlus className="mr-2" />
+					{showForm ? 'Cancel' : 'New Appointment'}
+				</motion.button>
+				<div className="relative">
+					<FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+					<input
+						type="text"
+						placeholder="Search appointments..."
+						className="pl-10 pr-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-accent"
+						value={searchTerm}
+						onChange={(e) => setSearchTerm(e.target.value)}
+					/>
+				</div>
+			</div>
+
+			{showForm && (
+				<motion.form
+					initial={{ opacity: 0, y: -20 }}
+					animate={{ opacity: 1, y: 0 }}
+					className="bg-white p-6 rounded-lg shadow-lg mb-8"
+					onSubmit={handleSubmit}
+				>
+					<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+						<input
+							type="text"
+							name="patientName"
+							placeholder="Patient Name"
+							className="p-2 border border-gray-300 rounded"
+							value={newAppointment.patientName}
+							onChange={handleInputChange}
+							required
+						/>
+						<select
+							name="doctorId"
+							className="p-2 border border-gray-300 rounded"
+							value={newAppointment.doctorId}
+							onChange={handleInputChange}
+							required
+						>
+							<option value="">Select Doctor</option>
+							{doctors.map(doctor => (
+								<option key={doctor.id} value={doctor.id}>
+									{doctor.name} - {doctor.specialty}
+								</option>
+							))}
+						</select>
+						<DatePicker
+							selected={newAppointment.appointmentDate}
+							onChange={handleDateChange}
+							showTimeSelect
+							dateFormat="MMMM d, yyyy h:mm aa"
+							className="p-2 border border-gray-300 rounded w-full"
+						/>
+						<textarea
+							name="notes"
+							placeholder="Notes"
+							className="p-2 border border-gray-300 rounded"
+							value={newAppointment.notes}
+							onChange={handleInputChange}
+						/>
+					</div>
+					<button type="submit" className="mt-4 bg-accent text-primary px-6 py-2 rounded-full font-bold">
+						Schedule Appointment
+					</button>
+				</motion.form>
+			)}
+
+			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+				{filteredAppointments.map((appointment) => (
+					<motion.div
+						key={appointment.id}
+						className="bg-white p-6 rounded-lg shadow-lg"
+						initial={{ opacity: 0, scale: 0.9 }}
+						animate={{ opacity: 1, scale: 1 }}
+						transition={{ duration: 0.3 }}
+					>
+						<h3 className="text-lg font-semibold mb-2">{appointment.patientName}</h3>
+						<p className="text-gray-600 mb-2">Doctor: {doctors.find(d => d.id === appointment.doctorId)?.name}</p>
+						<p className="text-gray-600 mb-2">Date: {appointment.appointmentDate.toLocaleString()}</p>
+						<p className="text-gray-600 mb-4">Notes: {appointment.notes}</p>
+						<div className="flex justify-between items-center">
+							<span className={`px-2 py-1 rounded-full text-xs ${
+								appointment.status === 'Completed' ? 'bg-green-200 text-green-800' : 'bg-yellow-200 text-yellow-800'
+							}`}>
+								{appointment.status}
+							</span>
+							<div>
+								<button className="text-blue-500 mr-2" title="Edit">
+									<FaEdit />
+								</button>
+								<button className="text-red-500 mr-2" onClick={() => deleteAppointment(appointment.id)} title="Delete">
+									<FaTrash />
+								</button>
+								{appointment.status !== 'Completed' && (
+									<button className="text-green-500" onClick={() => completeAppointment(appointment.id)} title="Mark as Completed">
+										<FaCheckCircle />
+									</button>
+								)}
+							</div>
+						</div>
+					</motion.div>
+				))}
+			</div>
+		</div>
 	);
 };
 

@@ -1,206 +1,142 @@
-import { useState } from 'react';
-import axios from 'axios'; // Ensure you have axios installed
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { FaUserPlus, FaSearch, FaEdit, FaTrash } from 'react-icons/fa';
 
 const Patients = () => {
     const [patients, setPatients] = useState([
         { id: 1, name: "John Doe", age: 35, gender: "Male", contact: "123-456-7890" },
         { id: 2, name: "Jane Smith", age: 28, gender: "Female", contact: "987-654-3210" },
     ]);
-    const [patientName, setPatientName] = useState('');
-    const [age, setAge] = useState('');
-    const [gender, setGender] = useState('');
-    const [contact, setContact] = useState('');
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [isSignup, setIsSignup] = useState(false); // New state to toggle signup
+    const [searchTerm, setSearchTerm] = useState('');
+    const [showForm, setShowForm] = useState(false);
+    const [newPatient, setNewPatient] = useState({ name: '', age: '', gender: '', contact: '' });
 
-    // Handle login form submission
-    const handleLogin = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await axios.post('/api/auth/login', { username, password });
-            if (response.data.success) {
-                setIsLoggedIn(true);
-            } else {
-                alert('Invalid credentials');
-            }
-        } catch (error) {
-            console.error("Login error:", error);
-            alert('Login failed. Please try again.');
-        }
+    const handleInputChange = (e) => {
+        setNewPatient({ ...newPatient, [e.target.name]: e.target.value });
     };
 
-    // Handle signup form submission
-    const handleSignup = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await axios.post('/api/auth/signup', { username, password });
-            if (response.data.success) {
-                alert('Signup successful! Please log in.');
-                setIsSignup(false); // Switch back to login form after signup
-            } else {
-                alert('Signup failed. Please try again.');
-            }
-        } catch (error) {
-            console.error("Signup error:", error);
-            alert('Signup failed. Please try again.');
-        }
-    };
-
-    // Handle patient form submission
     const handleSubmit = (e) => {
         e.preventDefault();
-        const newPatient = {
-            id: patients.length + 1,
-            name: patientName,
-            age: parseInt(age),
-            gender,
-            contact,
-        };
-        setPatients([...patients, newPatient]);
-        resetForm();
-        alert("Patient added successfully!");
+        setPatients([...patients, { id: patients.length + 1, ...newPatient }]);
+        setNewPatient({ name: '', age: '', gender: '', contact: '' });
+        setShowForm(false);
     };
 
-    // Reset form fields
-    const resetForm = () => {
-        setPatientName('');
-        setAge('');
-        setGender('');
-        setContact('');
-    };
-
-    // Delete patient
     const deletePatient = (id) => {
-        if (confirm("Are you sure you want to delete this patient?")) {
-            setPatients(patients.filter(patient => patient.id !== id));
-            alert("Patient deleted successfully!");
-        }
+        setPatients(patients.filter(patient => patient.id !== id));
     };
 
-    const handleLogout = () => {
-        setIsLoggedIn(false);
-        resetForm(); // Optional: Reset form fields on logout
-        setUsername('');
-        setPassword('');
-    };
+    const filteredPatients = patients.filter(patient =>
+        patient.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
     return (
-        <section className="bg-gray-100 p-6 rounded-lg shadow-lg max-w-md mx-auto mb-14">
-            <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Patient Management</h2>
-            <form id="patient-login" className="flex flex-col space-y-4 mb-6" onSubmit={isSignup ? handleSignup : handleLogin}>
-                <input
-                    type="text"
-                    className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                    placeholder="Username"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    required
-                />
-                <input
-                    type="password"
-                    className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-                <button type="submit" className="bg-green-600 text-white p-3 rounded-lg hover:bg-green-500 transition duration-200">
-                    {isSignup ? 'Sign Up' : 'Login'}
-                </button>
-                <p className="text-center mt-4">
-                    {isSignup ? 'Already have an account?' : "Don't have an account?"}
-                    <button
-                        type="button"
-                        onClick={() => setIsSignup(!isSignup)}
-                        className="text-blue-600 underline ml-1"
-                    >
-                        {isSignup ? 'Login' : 'Sign Up'}
-                    </button>
-                </p>
-            </form>
-
-            {/* Patient management form, always visible */}
-            <form id="patient-form" className="space-y-4" onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                    placeholder="Patient Name"
-                    value={patientName}
-                    onChange={(e) => setPatientName(e.target.value)}
-                    required
-                />
-                <input
-                    type="number"
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                    placeholder="Age"
-                    value={age}
-                    onChange={(e) => setAge(e.target.value)}
-                    required
-                />
-                <select
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                    value={gender}
-                    onChange={(e) => setGender(e.target.value)}
-                    required
+        <div className="bg-light min-h-screen p-8">
+            <h1 className="text-4xl font-bold text-primary mb-8">Patient Management</h1>
+            
+            <div className="mb-8 flex justify-between items-center">
+                <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="bg-accent text-primary px-6 py-2 rounded-full font-bold flex items-center"
+                    onClick={() => setShowForm(!showForm)}
                 >
-                    <option value="">Select Gender</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
-                </select>
-                <input
-                    type="tel"
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                    placeholder="Contact Number"
-                    value={contact}
-                    onChange={(e) => setContact(e.target.value)}
-                    required
-                />
-                <button type="submit" className="w-full bg-green-600 text-white p-3 rounded-lg hover:bg-green-500 transition duration-200">
-                    Add Patient
-                </button>
-            </form>
+                    <FaUserPlus className="mr-2" />
+                    {showForm ? 'Cancel' : 'Add New Patient'}
+                </motion.button>
+                <div className="relative">
+                    <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                    <input
+                        type="text"
+                        placeholder="Search patients..."
+                        className="pl-10 pr-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-accent"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                </div>
+            </div>
 
-            <h3 className="text-lg font-semibold mt-6 text-gray-800">Patients List</h3>
-            <table className="mt-2 w-full bg-white border rounded-lg">
-                <thead>
-                    <tr className="bg-gray-200">
-                        <th className="p-2 text-left">Name</th>
-                        <th className="p-2 text-left">Age</th>
-                        <th className="p-2 text-left">Gender</th>
-                        <th className="p-2 text-left">Contact</th>
-                        <th className="p-2 text-left">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {patients.map((patient) => (
-                        <tr key={patient.id} className="border-b">
-                            <td className="p-2">{patient.name}</td>
-                            <td className="p-2">{patient.age}</td>
-                            <td className="p-2">{patient.gender}</td>
-                            <td className="p-2">{patient.contact}</td>
-                            <td className="p-2">
-                                <button
-                                    onClick={() => deletePatient(patient.id)}
-                                    className="text-red-600 hover:underline"
-                                >
-                                    Delete
-                                </button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+            {showForm && (
+                <motion.form
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="bg-white p-6 rounded-lg shadow-lg mb-8"
+                    onSubmit={handleSubmit}
+                >
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <input
+                            type="text"
+                            name="name"
+                            placeholder="Patient Name"
+                            className="p-2 border border-gray-300 rounded"
+                            value={newPatient.name}
+                            onChange={handleInputChange}
+                            required
+                        />
+                        <input
+                            type="number"
+                            name="age"
+                            placeholder="Age"
+                            className="p-2 border border-gray-300 rounded"
+                            value={newPatient.age}
+                            onChange={handleInputChange}
+                            required
+                        />
+                        <select
+                            name="gender"
+                            className="p-2 border border-gray-300 rounded"
+                            value={newPatient.gender}
+                            onChange={handleInputChange}
+                            required
+                        >
+                            <option value="">Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <input
+                            type="tel"
+                            name="contact"
+                            placeholder="Contact Number"
+                            className="p-2 border border-gray-300 rounded"
+                            value={newPatient.contact}
+                            onChange={handleInputChange}
+                            required
+                        />
+                    </div>
+                    <button type="submit" className="mt-4 bg-accent text-primary px-6 py-2 rounded-full font-bold">
+                        Add Patient
+                    </button>
+                </motion.form>
+            )}
 
-            <button
-                onClick={handleLogout}
-                className="mt-4 text-red-600 hover:underline"
-            >
-                Logout
-            </button>
-        </section>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredPatients.map((patient, index) => (
+                    <motion.div
+                        key={patient.id}
+                        className={`bg-white p-6 rounded-lg shadow-lg ${
+                            index === 0 ? 'md:col-span-2' : ''
+                        }`}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                    >
+                        <h3 className="text-xl font-semibold text-primary mb-2">{patient.name}</h3>
+                        <p className="text-gray-600 mb-1">Age: {patient.age}</p>
+                        <p className="text-gray-600 mb-1">Gender: {patient.gender}</p>
+                        <p className="text-gray-600 mb-4">Contact: {patient.contact}</p>
+                        <div className="flex justify-end">
+                            <button className="text-blue-500 mr-2">
+                                <FaEdit />
+                            </button>
+                            <button className="text-red-500" onClick={() => deletePatient(patient.id)}>
+                                <FaTrash />
+                            </button>
+                        </div>
+                    </motion.div>
+                ))}
+            </div>
+        </div>
     );
 };
 

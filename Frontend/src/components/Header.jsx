@@ -23,20 +23,20 @@ const Header = () => {
     ];
 
     return (
-        <header className="bg-gradient-to-r from-primary to-secondary py-4 px-6">
+        <header className="bg-gradient-to-r from-primary to-secondary py-3 px-4">
             <div className="container mx-auto">
                 <div className="flex justify-between items-center">
                     <Link to="/" className="flex items-center space-x-2">
-                        <img src={Logo} alt="Health Nest Logo" className="h-12 w-auto" />
-                        <span className="text-3xl font-bold text-accent">Health Nest</span>
+                        <img src={Logo} alt="Health Nest Logo" className="h-10 w-auto" />
+                        <span className="text-2xl font-bold text-accent">Health Nest</span>
                     </Link>
 
-                    <nav className="hidden md:flex space-x-2">
+                    <nav className="hidden md:flex space-x-1">
                         {navItems.map((item) => (
                             <Link
                                 key={item.path}
                                 to={item.path}
-                                className={`relative px-4 py-2 text-xl font-medium text-light hover:text-accent transition-colors duration-300 ${
+                                className={`relative px-3 py-2 text-base font-medium text-light hover:text-accent transition-colors duration-300 ${
                                     activeItem === item.path ? 'text-accent' : ''
                                 }`}
                             >
@@ -53,12 +53,12 @@ const Header = () => {
                         ))}
                     </nav>
 
-                    <div className="hidden md:flex items-center space-x-4">
-                        <Link to="/signup" className="bg-accent text-primary px-5 py-2 rounded-full hover:bg-light transition duration-300 text-lg font-medium">
-                            <FaUser className="inline-block mr-2" />Sign Up
+                    <div className="hidden md:flex items-center space-x-3">
+                        <Link to="/signup" className="bg-accent text-primary px-4 py-1.5 rounded-full hover:bg-light transition duration-300 text-sm font-medium">
+                            <FaUser className="inline-block mr-1" />Sign Up
                         </Link>
-                        <Link to="/login" className="bg-light text-primary px-5 py-2 rounded-full hover:bg-accent transition duration-300 text-lg font-medium">
-                            <FaSignInAlt className="inline-block mr-2" />Log In
+                        <Link to="/login" className="bg-light text-primary px-4 py-1.5 rounded-full hover:bg-accent transition duration-300 text-sm font-medium">
+                            <FaSignInAlt className="inline-block mr-1" />Log In
                         </Link>
                     </div>
 
@@ -66,7 +66,7 @@ const Header = () => {
                         className="md:hidden text-light focus:outline-none"
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
                     >
-                        {isMenuOpen ? <FaTimes size={28} /> : <FaBars size={28} />}
+                        {isMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
                     </button>
                 </div>
 
@@ -77,13 +77,13 @@ const Header = () => {
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -20 }}
                             transition={{ duration: 0.3 }}
-                            className="md:hidden mt-4"
+                            className="md:hidden mt-3"
                         >
                             {navItems.map((item) => (
                                 <Link
                                     key={item.path}
                                     to={item.path}
-                                    className={`block py-2 px-4 text-lg font-medium text-light hover:text-accent transition duration-300 ${
+                                    className={`block py-2 px-3 text-base font-medium text-light hover:text-accent transition duration-300 ${
                                         activeItem === item.path ? 'text-accent' : ''
                                     }`}
                                     onClick={() => setIsMenuOpen(false)}
@@ -93,17 +93,17 @@ const Header = () => {
                             ))}
                             <Link
                                 to="/signup"
-                                className="block py-2 px-4 text-lg font-medium text-light hover:text-accent transition duration-300"
+                                className="block py-2 px-3 text-base font-medium text-light hover:text-accent transition duration-300"
                                 onClick={() => setIsMenuOpen(false)}
                             >
-                                <FaUser className="inline-block mr-2" />Sign Up
+                                <FaUser className="inline-block mr-1" />Sign Up
                             </Link>
                             <Link
                                 to="/login"
-                                className="block py-2 px-4 text-lg font-medium text-light hover:text-accent transition duration-300"
+                                className="block py-2 px-3 text-base font-medium text-light hover:text-accent transition duration-300"
                                 onClick={() => setIsMenuOpen(false)}
                             >
-                                <FaSignInAlt className="inline-block mr-2" />Log In
+                                <FaSignInAlt className="inline-block mr-1" />Log In
                             </Link>
                         </motion.div>
                     )}

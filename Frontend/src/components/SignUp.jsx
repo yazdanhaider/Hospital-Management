@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaUser, FaEnvelope, FaLock, FaPhoneAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import PasswordStrengthBar from 'react-password-strength-bar'; // Importing PasswordStrengthBar
 
 const SignUp = () => {
     const [formData, setFormData] = useState({
@@ -88,6 +89,9 @@ const SignUp = () => {
                                 required
                             />
                         </div>
+
+                        {/* Password Strength Checker */}
+                        <PasswordStrengthBar password={formData.password} />
                     </div>
                     <div>
                         <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>

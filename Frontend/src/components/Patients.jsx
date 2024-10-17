@@ -95,7 +95,7 @@ const Patients = () => {
                             <option value="Other">Other</option>
                         </select>
                         <input
-                            type="tel"
+                            type="number"
                             name="contact"
                             placeholder="Contact Number"
                             className="p-2 border border-gray-300 rounded"
@@ -115,7 +115,7 @@ const Patients = () => {
                     <motion.div
                         key={patient.id}
                         className={`bg-white p-6 rounded-lg shadow-lg ${
-                            index === 0 ? 'md:col-span-2' : ''
+                            index === 0 ? 'md:col-span-1' : ''
                         }`}
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}

@@ -23,6 +23,10 @@ const patientSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  age: {
+    type: Number,
+    require: true
+  }
 }, { timestamps: true });
 
 export const Patient = mongoose.model('Patient', patientSchema);

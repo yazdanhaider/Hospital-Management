@@ -47,6 +47,14 @@ const Patients = () => {
         password: newPatient.password,
       });
       setShowForm(false);
+      setNewPatient({
+        name: "",
+        age: "",
+        gender: "",
+        mobile: "",
+        email: "",
+        password: "",
+      });
     } catch (error) {
       console.log(error);
     }
@@ -72,7 +80,6 @@ const Patients = () => {
 
     getPatients();
   }, [showForm, patients]);
-
 
   const filteredPatients = patients.filter((patient) =>
     patient.name.toLowerCase().includes(searchTerm.toLowerCase())

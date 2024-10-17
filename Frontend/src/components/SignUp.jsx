@@ -9,12 +9,14 @@ const SignUp = () => {
         fullName: '',
         email: '',
         password: '',
-        confirmPassword: '',
-        phoneNumber: ''
+        selectedVal: '',
+        phoneNumber: '',
+        file: null, // To store the uploaded file
     });
 
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        const { name, value, type, files } = e.target;
+        setFormData({ ...formData, [name]: type === 'file' ? files[0] : value });
     };
 
     const handleSubmit = (e) => {
@@ -26,8 +28,9 @@ const SignUp = () => {
             fullName: '',
             email: '',
             password: '',
-            confirmPassword: '',
-            phoneNumber: ''
+            selectedVal: '',
+            phoneNumber: '',
+            file: null,
         });
         // You might want to redirect the user or show a success message here
     };
@@ -94,21 +97,35 @@ const SignUp = () => {
                         <PasswordStrengthBar password={formData.password} />
                     </div>
                     <div>
-                        <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
+                        <label htmlFor="selection" className="block text-sm font-medium text-gray-700 mb-1">Select</label>
                         <div className="relative">
-                            <FaLock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-                            <input
-                                type="password"
-                                id="confirmPassword"
-                                name="confirmPassword"
-                                value={formData.confirmPassword}
+                            <select
+                                id="selection"
+                                name="selectedVal"
+                                value={formData.selectedVal}
                                 onChange={handleChange}
                                 className="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
-                                placeholder="••••••••"
-                                required
-                            />
+                            >
+                                <option value="" disabled>Select</option>
+                                <option value="doctor">Doctor</option>
+                                <option value="patient">Patient</option>
+                            </select>
                         </div>
                     </div>
+                    {formData.selectedVal === 'doctor' && (
+                        <div>
+                            <label htmlFor="file" className="block text-sm font-medium text-gray-700 mb-1">Upload PDF</label>
+                            <input
+                                type="file"
+                                id="file"
+                                name="file"
+                                accept="application/pdf"
+                                onChange={handleChange}
+                                required
+                                className="border border-gray-300 rounded-md py-2 px-4 w-full focus:outline-none focus:ring-2 focus:ring-accent"
+                            />
+                        </div>
+                    )}
                     <div>
                         <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
                         <div className="relative">

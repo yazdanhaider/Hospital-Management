@@ -15,11 +15,35 @@ const Patients = () => {
         setNewPatient({ ...newPatient, [e.target.name]: e.target.value });
     };
 
+    const validateForm = () => {
+        const nameRegex = /^[A-Za-z][A-Za-z0-9 ]{3,}$/;
+        const contactRegex = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/;
+
+        if (!nameRegex.test(newPatient.name)) {
+            alert('Invalid name. Name should start with a letter and be at least 4 characters long.');
+            return false;
+        }
+
+        if (newPatient.age < 1 || newPatient.age > 120) {
+            alert('Age should be a number between 1 and 120.');
+            return false;
+        }
+
+        if (!contactRegex.test(newPatient.contact)) {
+            alert('Invalid contact number. It should follow the format XXX-XXX-XXXX.');
+            return false;
+        }
+
+        return true;
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        setPatients([...patients, { id: patients.length + 1, ...newPatient }]);
-        setNewPatient({ name: '', age: '', gender: '', contact: '' });
-        setShowForm(false);
+        if (validateForm()) {
+            setPatients([...patients, { id: patients.length + 1, ...newPatient }]);
+            setNewPatient({ name: '', age: '', gender: '', contact: '' });
+            setShowForm(false);
+        }
     };
 
     const deletePatient = (id) => {

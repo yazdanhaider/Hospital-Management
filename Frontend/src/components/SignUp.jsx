@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { FaUser, FaEnvelope, FaLock, FaPhoneAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
+
 const SignUp = () => {
     const [formData, setFormData] = useState({
         fullName: '',

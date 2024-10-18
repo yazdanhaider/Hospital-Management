@@ -14,7 +14,7 @@ const Home = () => {
     ];
 
     return (
-        <div className="bg-light min-h-screen">
+        <div id="home" className="bg-light min-h-screen">
             <section className="hero bg-primary text-light py-12 sm:py-20 px-4 rounded-3xl mx-2 sm:mx-4 mt-4">
                 <div className="container mx-auto text-center">
                     <motion.h1 

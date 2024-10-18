@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaUser, FaEnvelope, FaLock, FaPhoneAlt } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import PasswordStrengthBar from 'react-password-strength-bar'; // Importing PasswordStrengthBar
 
 const SignUp = () => {
@@ -14,25 +14,45 @@ const SignUp = () => {
         file: null, // To store the uploaded file
     });
 
+    const navigate = useNavigate();
+
     const handleChange = (e) => {
         const { name, value, type, files } = e.target;
         setFormData({ ...formData, [name]: type === 'file' ? files[0] : value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+
         // Here you would typically send the form data to your backend
+        try {
+            // replace with backend url
+            const url = 'http://localhost:5173/api/register'
+
+            const res = await fetch(url, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body:  JSON.stringify(formData)
+            });
+
+            const result = await res.json();
+
+            if(result.success){
+                setTimeout(() => {
+                    navigate('/login')
+                }, 500);
+            }else{
+                alert("Error occured");
+            }
+
+        } catch (e) {
+            console.log(e.toString());
+            alert(e.toString());
+        }
+
         console.log('Form submitted:', formData);
-        // Reset form after submission
-        setFormData({
-            fullName: '',
-            email: '',
-            password: '',
-            selectedVal: '',
-            phoneNumber: '',
-            file: null,
-        });
-        // You might want to redirect the user or show a success message here
     };
 
     return (

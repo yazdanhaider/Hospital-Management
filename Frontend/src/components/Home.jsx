@@ -52,10 +52,11 @@ const Home = () => {
                         {features.map((feature, index) => (
                             <motion.div 
                                 key={index} 
-                                className="bg-white p-6 rounded-3xl shadow-lg text-center"
+                                className="bg-white p-6 rounded-3xl shadow-lg text-center feature-card"
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.5, delay: index * 0.1 }}
+                                transition={{ duration: 0.5, delay: index* 0.01}}
+                                whileHover={{ y: -10 }}
                             >
                                 <feature.icon className="text-4xl sm:text-5xl text-accent mb-4 mx-auto" />
                                 <h3 className="text-lg sm:text-xl font-semibold mb-2 text-primary">{feature.title}</h3>
@@ -74,10 +75,10 @@ const Home = () => {
                             <img src="https://images.unsplash.com/photo-1551076805-e1869033e561?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Modern Hospital" className="rounded-3xl shadow-lg" />
                         </div>
                         <div className="md:w-1/2 md:pl-8">
-                            <p className="text-gray-600 mb-4">
+                            <p className="text-gray-600 mb-4 text-[1.1rem] font-montserrat ">
                                 Health Nest is a cutting-edge healthcare management system designed to streamline medical processes and enhance patient care. Our platform integrates advanced technology with medical expertise to provide a seamless experience for both healthcare providers and patients.
                             </p>
-                            <p className="text-gray-600 mb-4">
+                            <p className="text-gray-600 mb-4 text-[1.1rem] font-montserrat">
                                 With Health Nest, you can easily manage appointments, access medical records, and communicate with your healthcare team. We're committed to improving healthcare accessibility and efficiency, ensuring that you receive the best possible care.
                             </p>
                             <motion.button 

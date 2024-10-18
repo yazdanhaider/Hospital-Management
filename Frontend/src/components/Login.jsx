@@ -9,14 +9,49 @@ const Login = () => {
         password: '',
     });
 
+    const navigate = useNavigate();
+
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Here you would typically send the form data to your backend for authentication
+
+        // Here you would typically send the form data to your backend
+        try {
+            // replace with backend url
+            const url = 'http://localhost:5173/api/register'
+
+            const res = await fetch(url, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body:  JSON.stringify(formData)
+            });
+
+            const result = await res.json();
+
+            if(result.success){
+                localStorage.setItem("token", result.jwtToken);
+                localStorage.setItem("email",result.email);
+                localStorage.setItem("user", result.name);
+                localStorage.setItem("isSignin", true);
+                setTimeout(() => {
+                    navigate('/home')
+                }, 500);
+            }else{
+                alert("Error occured");
+            }
+
+        } catch (e) {
+            console.log(e.toString());
+            alert(e.toString());
+        }
+
         console.log('Login attempt:', formData);
+
         // Reset form after submission
         setFormData({
             email: '',
@@ -26,7 +61,7 @@ const Login = () => {
     };
 
     return (
-        <div className="bg-light min-h-screen flex items-center justify-center p-4">
+        <div id='login' className="bg-light min-h-screen flex items-center justify-center p-4">
             <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}

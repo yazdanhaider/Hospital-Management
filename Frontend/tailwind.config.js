@@ -11,6 +11,9 @@ export default {
         'light': '#F6F6F6',
         'accent': '#FFCB74',
       },
+      fontFamily: {
+        montserrat: ['Montserrat', 'sans-serif'],
+      },
     },
   },
   plugins: [],

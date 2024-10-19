@@ -1,19 +1,28 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FaUserMd, FaSearch, FaEye, FaCalendarPlus } from 'react-icons/fa';
+import { FaSearch, FaCalendarPlus } from 'react-icons/fa';
+import DoctorModal from './DoctorProfile'; // Import the modal component
 
 const Doctors = ({ doctors }) => {
     const navigate = useNavigate();
     const [searchTerm, setSearchTerm] = useState('');
+    const [selectedDoctor, setSelectedDoctor] = useState(null); // State to manage selected doctor
+    const [isModalOpen, setIsModalOpen] = useState(false); // State to manage modal visibility
 
     const filteredDoctors = doctors.filter(doctor =>
         doctor.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         doctor.specialty.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-    const handleBookAppointment = (doctorId) => {
-        navigate(`/appointments?doctorId=${doctorId}`);
+    const handleOpenModal = (doctor) => {
+        setSelectedDoctor(doctor);
+        setIsModalOpen(true); // Open the modal
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+        setSelectedDoctor(null); // Reset the selected doctor
     };
 
     return (
@@ -34,11 +43,11 @@ const Doctors = ({ doctors }) => {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-                {filteredDoctors.map((doctor, index) => (
+                {filteredDoctors.map((doctor) => (
                     <motion.div
                         key={doctor.id}
-                        className="bg-white p-4 sm:p-6 rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl"
-                        whileHover={{ scale: 1.03 }}
+                        className="bg-white p-4 sm:p-6 rounded-lg shadow-lg transition-all duration-300 cursor-pointer"
+                        onClick={() => handleOpenModal(doctor)} // Open modal on card click
                     >
                         <img src={doctor.image} alt={doctor.name} className="w-24 h-24 sm:w-32 sm:h-32 rounded-full mx-auto mb-4 object-cover" />
                         <h3 className="text-lg sm:text-xl font-semibold text-primary text-center mb-2">{doctor.name}</h3>
@@ -47,21 +56,12 @@ const Doctors = ({ doctors }) => {
                             <span>Patients: {doctor.patients}</span>
                             <span>Experience: {doctor.experience} years</span>
                         </div>
-                        <div className="flex flex-col sm:flex-row justify-center space-y-2 sm:space-y-0 sm:space-x-4">
-                            <motion.button
-                                whileHover={{ scale: 1.1 }}
-                                whileTap={{ scale: 0.9 }}
-                                className="bg-accent text-primary px-4 py-2 rounded-full font-bold flex items-center justify-center"
-                                onClick={() => navigate(`/doctor/${doctor.id}`)}
-                            >
-                                <FaEye className="mr-2" />
-                                View Profile
-                            </motion.button>
+                        <div className="flex justify-center">
                             <motion.button
                                 whileHover={{ scale: 1.1 }}
                                 whileTap={{ scale: 0.9 }}
                                 className="bg-primary text-accent px-4 py-2 rounded-full font-bold flex items-center justify-center"
-                                onClick={() => handleBookAppointment(doctor.id)}
+                                onClick={() => navigate(`/appointments?doctorId=${doctor.id}`)}
                             >
                                 <FaCalendarPlus className="mr-2" />
                                 Book Appointment
@@ -70,6 +70,13 @@ const Doctors = ({ doctors }) => {
                     </motion.div>
                 ))}
             </div>
+
+            {/* Doctor Modal */}
+            <DoctorModal 
+                doctor={selectedDoctor} 
+                onClose={handleCloseModal} 
+                isOpen={isModalOpen} 
+            />
         </div>
     );
 };

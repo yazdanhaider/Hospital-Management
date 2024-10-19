@@ -1,3 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/*custom css*/
+@layer utilities {
+    .feature-card:hover {
+      box-shadow: rgba(240, 198, 46, 0.4) 5px 5px, 
+                  rgba(237, 204, 57, 0.3) 10px 10px, 
+                  rgba(248, 212, 50, 0.385) 15px 15px;
+                  
+    }
+  }

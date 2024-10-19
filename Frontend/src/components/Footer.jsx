@@ -22,12 +22,12 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-secondary text-light">
+    <footer className="bg-secondary text-light font-montserrat">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="space-y-4">
             <h3 className="text-xl font-bold text-accent">Health Nest</h3>
-            <p className="text-sm">
+            <p className="text-[1rem]">
               Revolutionizing healthcare management with cutting-edge technology and compassionate care.
             </p>
             <div className="flex space-x-4">
@@ -44,13 +44,13 @@ const Footer = () => {
               ))}
             </div>
           </div>
-          <div className="md:col-span-2">
+          <div className="md:col-span-2 my-auto ml-8">
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
               {footerLinks.map((link, index) => (
-                <motion.div key={index} whileHover={{ x: 5 }}>
+                <motion.div key={index} whileHover={{ y: -3 }}>
                   <Link
                     to={link.to}
-                    className="text-light hover:text-accent transition-colors duration-300 text-sm"
+                    className="flex items-center text-light hover:text-accent transition-colors duration-300 text-[0.95rem]"
                   >
                     {link.title}
                   </Link>

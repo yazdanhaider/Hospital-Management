@@ -98,6 +98,11 @@ Project Link: https://github.com/yazdanhaider/Hospital-Management/
 
 [![Star History Chart](https://api.star-history.com/svg?repos=yazdanhaider/Hospital-Management&type=Date)](https://star-history.com/#yazdanhaider/Food-Delivery&Date)
 
+# Thanks to all contributors
+<a href="https://github.com/yazdanhaider/Hospital-Management/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=yazdanhaider/Hospital-Management" />
+</a>
+
 ## Acknowledgements
 
 - [React](https://reactjs.org/)

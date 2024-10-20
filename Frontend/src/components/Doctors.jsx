@@ -46,7 +46,8 @@ const Doctors = ({ doctors }) => {
                 {filteredDoctors.map((doctor) => (
                     <motion.div
                         key={doctor.id}
-                        className="bg-white p-4 sm:p-6 rounded-lg shadow-lg transition-all duration-300 relative"
+                        className="bg-white p-4 sm:p-6 rounded-lg shadow-lg transition-all duration-300 relative cursor-pointer" // Add cursor-pointer to indicate clickable card
+                        onClick={() => handleOpenModal(doctor)} // Open modal when clicking on the card
                     >
                         <img src={doctor.image} alt={doctor.name} className="w-24 h-24 sm:w-32 sm:h-32 rounded-full mx-auto mb-4 object-cover" />
                         <h3 className="text-lg sm:text-xl font-semibold text-primary text-center mb-2">{doctor.name}</h3>
@@ -62,7 +63,10 @@ const Doctors = ({ doctors }) => {
                                 whileHover={{ scale: 1.1 }}
                                 whileTap={{ scale: 0.9 }}
                                 className="bg-primary text-accent px-4 py-2 rounded-full font-bold flex items-center justify-center"
-                                onClick={() => navigate(`/appointments?doctorId=${doctor.id}`)}
+                                onClick={(e) => {
+                                    e.stopPropagation(); // Prevent triggering the card click event
+                                    navigate(`/appointments?doctorId=${doctor.id}`);
+                                }}
                             >
                                 <FaCalendarPlus className="mr-2" />
                                 Book Appointment
@@ -73,10 +77,13 @@ const Doctors = ({ doctors }) => {
                         <motion.button
                             whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 0.9 }}
-                            className="absolute bottom-4 left-4 bg-accent text-black p-3 rounded-full flex items-center justify-center shadow-md"
-                            onClick={() => handleOpenModal(doctor)} // Open modal on 'i' button click
+                            className="absolute bottom-2 left-2 bg-accent text-black p-1.5 rounded-full flex items-center justify-center shadow-md" // Make the button smaller
+                            onClick={(e) => {
+                                e.stopPropagation(); // Prevent triggering the card click event
+                                handleOpenModal(doctor); // Open modal on 'i' button click
+                            }}
                         >
-                            <FaInfoCircle />
+                            <FaInfoCircle className="text-sm" />
                         </motion.button>
                     </motion.div>
                 ))}

@@ -7,8 +7,8 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [
-    { icon: FaTwitter, href: '#', color: 'text-blue-400' },
-    { icon: FaFacebookF, href: '#', color: 'text-blue-600' },
+    { icon: FaTwitter, href: 'https://x.com/YazdanH7', color: 'text-blue-400' },
+    { icon: FaFacebookF, href: 'https://www.facebook.com/yazdan.yazdankhan.7/', color: 'text-blue-600' },
     { icon: FaInstagram, href: '#', color: 'text-pink-500' },
     { icon: FaLinkedinIn, href: '#', color: 'text-blue-700' },
   ];

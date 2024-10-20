@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FaSearch, FaCalendarPlus } from 'react-icons/fa';
+import { FaSearch, FaCalendarPlus, FaInfoCircle } from 'react-icons/fa';
 import DoctorModal from './DoctorProfile'; // Import the modal component
 
 const Doctors = ({ doctors }) => {
@@ -46,8 +46,7 @@ const Doctors = ({ doctors }) => {
                 {filteredDoctors.map((doctor) => (
                     <motion.div
                         key={doctor.id}
-                        className="bg-white p-4 sm:p-6 rounded-lg shadow-lg transition-all duration-300 cursor-pointer"
-                        onClick={() => handleOpenModal(doctor)} // Open modal on card click
+                        className="bg-white p-4 sm:p-6 rounded-lg shadow-lg transition-all duration-300 relative"
                     >
                         <img src={doctor.image} alt={doctor.name} className="w-24 h-24 sm:w-32 sm:h-32 rounded-full mx-auto mb-4 object-cover" />
                         <h3 className="text-lg sm:text-xl font-semibold text-primary text-center mb-2">{doctor.name}</h3>
@@ -56,6 +55,8 @@ const Doctors = ({ doctors }) => {
                             <span>Patients: {doctor.patients}</span>
                             <span>Experience: {doctor.experience} years</span>
                         </div>
+
+                        {/* Book Appointment button */}
                         <div className="flex justify-center">
                             <motion.button
                                 whileHover={{ scale: 1.1 }}
@@ -67,6 +68,16 @@ const Doctors = ({ doctors }) => {
                                 Book Appointment
                             </motion.button>
                         </div>
+
+                        {/* 'i' button in bottom-left corner */}
+                        <motion.button
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
+                            className="absolute bottom-4 left-4 bg-accent text-black p-3 rounded-full flex items-center justify-center shadow-md"
+                            onClick={() => handleOpenModal(doctor)} // Open modal on 'i' button click
+                        >
+                            <FaInfoCircle />
+                        </motion.button>
                     </motion.div>
                 ))}
             </div>

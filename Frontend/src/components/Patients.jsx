@@ -28,7 +28,6 @@ const Patients = () => {
     gender: "",
     mobile: "",
     email: "",
-    password: "",
   });
 
   const handleInputChange = (e) => {
@@ -38,13 +37,27 @@ const Patients = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      if (newPatient.name.trim().length < 4) {
+        alert(
+          "Invalid name. Name should start with a letter and be at least 4 characters long."
+        );
+        return;
+      }
+      const contactRegex = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/;
+
+      if (newPatient.mobile && !contactRegex.test(newPatient.mobile)) {
+        alert(
+          "Invalid contact number. It should follow the format XXX-XXX-XXXX"
+        );
+        return;
+      }
+
       const response = await axios.post("/api/patients/register", {
         name: newPatient.name,
         age: newPatient.age,
         gender: newPatient.gender,
         mobile: newPatient.mobile,
         email: newPatient.email,
-        password: newPatient.password,
       });
       setShowForm(false);
       setNewPatient({
@@ -62,7 +75,7 @@ const Patients = () => {
 
   const deletePatient = async (id) => {
     try {
-      const response = await axios.post("/api/patients//delete-patient", {
+      const response = await axios.post("/api/patients/delete-patient", {
         patientId: id,
       });
       setShowForm(false);
@@ -136,15 +149,6 @@ const Patients = () => {
               placeholder="Patient Email"
               className="p-2 border border-gray-300 rounded"
               value={newPatient.email}
-              onChange={handleInputChange}
-              required
-            />
-            <input
-              type="text"
-              name="password"
-              placeholder="Password"
-              className="p-2 border border-gray-300 rounded"
-              value={newPatient.password}
               onChange={handleInputChange}
               required
             />

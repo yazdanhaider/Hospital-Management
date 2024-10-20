@@ -9,8 +9,8 @@ const Footer = () => {
   const socialLinks = [
     { icon: FaTwitter, href: 'https://x.com/YazdanH7', color: 'text-blue-400' },
     { icon: FaFacebookF, href: 'https://www.facebook.com/yazdan.yazdankhan.7/', color: 'text-blue-600' },
-    { icon: FaInstagram, href: '#', color: 'text-pink-500' },
-    { icon: FaLinkedinIn, href: '#', color: 'text-blue-700' },
+    { icon: FaInstagram, href: 'https://www.instagram.com/yazdan.haider23/', color: 'text-pink-500' },
+    { icon: FaLinkedinIn, href: 'https://www.linkedin.com/in/yazdan-haider', color: 'text-blue-700' },
   ];
 
   const footerLinks = [

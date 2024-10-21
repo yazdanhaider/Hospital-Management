@@ -35,6 +35,7 @@ const Footer = () => {
                 <motion.a
                   key={index}
                   href={link.href}
+                  target="_blank" 
                   className="text-light hover:text-accent transition-colors duration-300"
                   whileHover={{ scale: 1.2 }}
                   whileTap={{ scale: 0.9 }}

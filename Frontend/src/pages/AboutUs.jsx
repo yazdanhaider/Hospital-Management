@@ -28,7 +28,7 @@ const AboutUs = () => {
       <div className="bg-light p-8 rounded-lg mb-12 text-center">
         <h1 className="text-4xl font-bold text-primary mb-4">About Us</h1>
         <p className="text-lg text-secondary mb-4">
-          Hospital Management System (HMS) is a cutting-edge solution designed to streamline healthcare operations and improve patient care.
+          Health Nest- Hospital Management System is a cutting-edge solution designed to streamline healthcare operations and improve patient care.
         </p>
         <p className="text-lg text-secondary">
           Our mission is to revolutionize healthcare management through innovative technology solutions that enhance efficiency, reduce errors, and improve patient outcomes.

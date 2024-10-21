@@ -46,7 +46,7 @@ const Doctors = ({ doctors }) => {
                 {filteredDoctors.map((doctor) => (
                     <motion.div
                         key={doctor.id}
-                        className="bg-white p-4 sm:p-6 rounded-lg shadow-lg transition-all duration-300 relative cursor-pointer" // Add cursor-pointer to indicate clickable card
+                        className="bg-white p-4 sm:p-6 rounded-lg shadow-lg transition-all duration-300 relative cursor-pointer"
                         onClick={() => handleOpenModal(doctor)} // Open modal when clicking on the card
                     >
                         <img src={doctor.image} alt={doctor.name} className="w-24 h-24 sm:w-32 sm:h-32 rounded-full mx-auto mb-4 object-cover" />
@@ -73,11 +73,11 @@ const Doctors = ({ doctors }) => {
                             </motion.button>
                         </div>
 
-                        {/* 'i' button in bottom-left corner */}
+                        {/* 'i' button in bottom-right corner */}
                         <motion.button
                             whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 0.9 }}
-                            className="absolute bottom-2 left-2 bg-accent text-black p-1.5 rounded-full flex items-center justify-center shadow-md" // Make the button smaller
+                            className="absolute bottom-2 right-2 bg-accent text-black p-1.5 rounded-full flex items-center justify-center shadow-md"
                             onClick={(e) => {
                                 e.stopPropagation(); // Prevent triggering the card click event
                                 handleOpenModal(doctor); // Open modal on 'i' button click
@@ -90,11 +90,39 @@ const Doctors = ({ doctors }) => {
             </div>
 
             {/* Doctor Modal */}
-            <DoctorModal 
-                doctor={selectedDoctor} 
-                onClose={handleCloseModal} 
-                isOpen={isModalOpen} 
-            />
+            {isModalOpen && selectedDoctor && (
+                <div 
+                    className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+                    onClick={handleCloseModal} // Close modal when clicking outside
+                >
+                    <div 
+                        className="bg-white rounded-lg p-6 max-w-md mx-auto relative z-10"
+                        onClick={(e) => e.stopPropagation()} // Prevent click events from closing the modal
+                    >
+                        <button className="absolute top-2 right-2 text-gray-600" onClick={handleCloseModal}>
+                            &times;
+                        </button>
+                        <div className="flex flex-col items-center">
+                            <img src={selectedDoctor.image} alt={selectedDoctor.name} className="w-32 h-32 rounded-full object-cover mb-4" />
+                            <h1 className="text-2xl font-bold text-primary">{selectedDoctor.name}</h1>
+                            <p className="text-xl text-gray-600">{selectedDoctor.specialty}</p>
+                            <p className="text-gray-700 mb-2">Experience: {selectedDoctor.experience} years</p>
+                            <p className="text-gray-700 mb-2">Patients: {selectedDoctor.patients}</p>
+                            <p className="text-gray-700 mb-4">{selectedDoctor.bio}</p>
+                            <button 
+                                className="bg-accent text-primary px-6 py-2 rounded-full font-bold hover:bg-primary hover:text-accent transition duration-300 flex items-center justify-center"
+                                onClick={() => {
+                                    navigate(`/appointments?doctorId=${selectedDoctor.id}`);
+                                    handleCloseModal(); // Close the modal after navigating
+                                }}
+                            >
+                                <FaCalendarPlus className="mr-2" />
+                                Book Appointment
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

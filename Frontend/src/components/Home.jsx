@@ -139,10 +139,11 @@ const Home = () => {
               ].map((testimonial, index) => (
                 <motion.div
                   key={index}
-                  className="bg-white p-6 rounded-3xl shadow-lg"
+                  className="bg-white p-6 rounded-3xl shadow-lg cursor-pointer transition-all ease-out hover:font-semibold"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
+                  whileHover={{ scale: 1.08, boxShadow: "0px 20px 30px rgba(0,0,0,0.2)", backgroundColor: "rgb(255 203 116)" }}
                 >
                   <img
                     src={testimonial.image}

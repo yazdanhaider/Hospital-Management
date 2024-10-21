@@ -9,6 +9,7 @@ import Admin from './components/Admin';
 import Footer from './components/Footer';
 import NotFound from "./components/NotFound";
 import ScrollToTopButton from "./components/ScrollToTopButton";
+import ScrollToTop from "./components/ScrollToTop";
 import AboutUs from './pages/AboutUs';
 import Services from './pages/Services';
 import PrivacyPolicy from './pages/PrivacyPolicy';
@@ -33,6 +34,7 @@ function App() {
 
   return (
     <Router>
+      <ScrollToTop />
       <div className="bg-light min-h-screen font-sans text-primary">
         <Header />
         <main className="container mx-auto px-4 py-8">

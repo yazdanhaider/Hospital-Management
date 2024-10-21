@@ -31,7 +31,7 @@ const MultiCardCarousel = () => {
     },
     {
       icon: FaHeartbeat,
-      title: "Electronic Health Records (EHR)",
+      title: "Electronic Health Records",
       description:
         "Digitally store, access, and manage comprehensive patient medical records.",
     },
@@ -104,25 +104,25 @@ const MultiCardCarousel = () => {
   }, [cardsPerPage, currentIndex, cards.length]);
 
   return (
-    <div className="mt-2">
-      <div className="w-11/12 m-auto">
-        <div className="relative">
+    <div className="mt-2 ">
+      <div className="w-11/12 m-auto ">
+        <div className="relative ">
           {/* Responsive grid: based on cardsPerPage state */}
-          <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8`}>
+          <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 `}>
             {cards.slice(currentIndex, currentIndex + cardsPerPage).map((card, index) => (
               <motion.div
                 key={index}
-                className="bg-white p-6 rounded-3xl shadow-lg text-center feature-card"
+                className="bg-white  p-6 rounded-3xl shadow-lg text-center feature-card h-[200px] sm:h-[250px] flex flex-col justify-center  "
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.01 }}
                 whileHover={{ y: -10 }}
               >
                 <card.icon className="text-4xl sm:text-5xl text-accent mb-4 mx-auto" />
-                <h3 className="text-lg sm:text-xl font-semibold mb-2 text-primary">
+                <h3 className="text-lg sm:text-xl lg:my-2 font-semibold mb-2 text-primary">
                   {card.title}
                 </h3>
-                <p className="text-gray-600 text-sm sm:text-base">
+                <p className="text-gray-600 text-sm sm:text-40px ">
                   {card.description}
                 </p>
               </motion.div>

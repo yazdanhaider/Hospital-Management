@@ -10,6 +10,8 @@ export default {
         'secondary': '#19252BFF',
         'light': '#F6F6F6',
         'accent': '#FFCB74',
+        'navy-800': '#0a1128',
+        'navy-900': '#001f3f'
       },
       fontFamily: {
         montserrat: ['Montserrat', 'sans-serif'],

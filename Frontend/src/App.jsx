@@ -17,6 +17,7 @@ import TermsOfService from './pages/TermsOfService';
 import ContactUs from './pages/ContactUs';
 import SignUp from './components/SignUp';
 import Login from './components/Login';
+import Review from './components/Review';
 import { useState } from 'react';
 
 function App() {

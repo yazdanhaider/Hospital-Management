@@ -77,7 +77,7 @@ const Doctors = ({ doctors }) => {
                         <motion.button
                             whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 0.9 }}
-                            className="absolute bottom-2 right-2 bg-accent text-black p-1.5 rounded-full flex items-center justify-center shadow-md"
+                            className="absolute top-2 right-2 bg-accent text-black p-1.5 rounded-full flex items-center justify-center shadow-md"
                             onClick={(e) => {
                                 e.stopPropagation(); // Prevent triggering the card click event
                                 handleOpenModal(doctor); // Open modal on 'i' button click

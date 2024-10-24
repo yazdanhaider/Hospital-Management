@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import Review from './Review';
 import { FaHospital, FaUserMd, FaCalendarCheck, FaHeartbeat, FaAmbulance, FaLaptopMedical } from 'react-icons/fa';
 
 const Home = () => {
@@ -180,6 +181,7 @@ const Home = () => {
             </Link>
           </div>
         </section>
+        <Review />
       </div>
     );
 };

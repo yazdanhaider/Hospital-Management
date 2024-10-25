@@ -87,16 +87,21 @@ const Patients = () => {
 
   useEffect(() => {
     async function getPatients() {
-      const response = await axios.get("/api/patients/get-patients");
-      setPatients(response?.data?.data);
+      axios.get("/api/patients/get-patients")
+      .then(response => {
+       response.data.data && setPatients(response?.data?.data);       
+      })
+      .catch(error => {
+        console.error("Error fetching patients:", error);
+      });
     }
 
     getPatients();
   }, [showForm, patients]);
 
-  const filteredPatients = patients.filter((patient) =>
+  const filteredPatients =  patients?.filter((patient) =>
     patient.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  ) || patients;
 
   return (
     <div className="bg-light min-h-screen p-4 sm:p-8">
@@ -193,7 +198,7 @@ const Patients = () => {
       )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredPatients.map((patient, index) => (
+        {filteredPatients && filteredPatients.length > 0 && filteredPatients.map((patient, index) => (
           <motion.div
             key={index}
             className={`bg-white p-6 rounded-lg shadow-lg ${

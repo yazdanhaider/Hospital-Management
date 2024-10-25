@@ -94,7 +94,7 @@ const Patients = () => {
     getPatients();
   }, [showForm, patients]);
 
-  const filteredPatients = patients.filter((patient) =>
+  const filteredPatients = patients?.filter((patient) =>
     patient.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 

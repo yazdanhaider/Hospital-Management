@@ -2,6 +2,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { FaHospital, FaUserMd, FaCalendarCheck, FaHeartbeat, FaAmbulance, FaLaptopMedical } from 'react-icons/fa';
+import Support from './Support';
+
 
 const Home = () => {
     const features = [
@@ -43,6 +45,10 @@ const Home = () => {
               </motion.button>
             </Link>
           </div>
+          <div>
+            <Support/>
+          </div>
+
         </section>
 
         <section className="features py-12 sm:py-20">
@@ -179,6 +185,8 @@ const Home = () => {
             </Link>
           </div>
         </section>
+        <div>
+        </div>
       </div>
     );
 };

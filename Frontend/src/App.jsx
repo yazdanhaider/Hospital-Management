@@ -11,7 +11,7 @@ import NotFound from "./components/NotFound";
 import ScrollToTopButton from "./components/ScrollToTopButton";
 import AboutUs from './pages/AboutUs';
 import Services from './pages/Services';
-import PrivacyPolicy from './pages/PrivacyPolicy';
+// import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
 import ContactUs from './pages/ContactUs';
 import SignUp from './components/SignUp';
@@ -37,7 +37,9 @@ function App() {
         <Header />
         <main className="container mx-auto px-4 py-8">
           <Routes>
+            
             <Route path="/" element={<Home />} />
+              
             <Route path="/appointments" element={<Appointments />} />
             <Route path="/patients" element={<Patients />} />
             <Route path="/doctors" element={<Doctors doctors={doctors} />} />
@@ -45,12 +47,13 @@ function App() {
             <Route path="/admin" element={<Admin />} />
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="/services" element={<Services />} />
-            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            {/* <Route path="/privacy-policy" element={<PrivacyPolicy />} /> */}
             <Route path="/terms-of-service" element={<TermsOfService />} />
             <Route path="/contact-us" element={<ContactUs />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
             <Route path="*" element={<NotFound />} />
+
           </Routes>
         </main>
         <ScrollToTopButton/>

@@ -13,3 +13,17 @@
                   
     }
   }
+  .slick-slide >div{
+    margin:0 10px;
+  }
+  .slider img {
+    width: 100%;      
+    height: 16rem;    
+    object-fit: cover; 
+}
+
+.slider-image {
+  width: 100%; 
+  height: 300px; 
+  object-fit: cover; 
+}

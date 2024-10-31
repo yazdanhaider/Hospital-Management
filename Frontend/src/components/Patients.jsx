@@ -26,6 +26,7 @@ const Patients = () => {
     name: "",
     age: "",
     gender: "",
+    contact: "",
     mobile: "",
     email: "",
   });
@@ -36,7 +37,7 @@ const Patients = () => {
 
   const validateForm = () => {
     const nameRegex = /^[A-Za-z][A-Za-z0-9 ]{3,}$/;
-    const contactRegex = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/;
+    const contactRegex = /^[0-9]{3}[0-9]{3}[0-9]{4}$/;
 
     if (!nameRegex.test(newPatient.name)) {
       alert(
@@ -50,7 +51,7 @@ const Patients = () => {
       return false;
     }
 
-    if (newPatient.mobile && !contactRegex.test(newPatient.mobile)) {
+    if (!contactRegex.test(newPatient.contact)) {
       alert(
         "Invalid contact number. It should follow the format XXX-XXX-XXXX."
       );
@@ -62,9 +63,22 @@ const Patients = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validateForm()) return;
-
     try {
+      if (newPatient.name.trim().length < 4) {
+        alert(
+          "Invalid name. Name should start with a letter and be at least 4 characters long."
+        );
+        return;
+      }
+      const contactRegex = /^[0-9]{3}[0-9]{3}[0-9]{4}$/;
+
+      if (newPatient.mobile && !contactRegex.test(newPatient.mobile)) {
+        alert(
+          "Invalid contact number. It should follow the format XXX-XXX-XXXX"
+        );
+        return;
+      }
+
       const response = await axios.post("/api/patients/register", {
         name: newPatient.name,
         age: newPatient.age,
@@ -73,14 +87,8 @@ const Patients = () => {
         email: newPatient.email,
       });
       setShowForm(false);
-      setNewPatient({
-        name: "",
-        age: "",
-        gender: "",
-        mobile: "",
-        email: "",
-      });
-      console.log(response.data.message);
+      setNewPatient({ ...newPatient, [e.target.name]: e.target.value });
+      console.log(newPatient);
     } catch (error) {
       console.log(error);
     }
@@ -88,9 +96,10 @@ const Patients = () => {
 
   const deletePatient = async (id) => {
     try {
-      await axios.post("/api/patients/delete-patient", {
+      const response = await axios.post("/api/patients/delete-patient", {
         patientId: id,
       });
+      setShowForm(false);
       console.log("Patient deleted successfully");
     } catch (error) {
       console.log("Error in deleting the patient", error);
@@ -99,16 +108,18 @@ const Patients = () => {
 
   useEffect(() => {
     async function getPatients() {
-      try {
-        const response = await axios.get("/api/patients/get-patients");
-        setPatients(response.data.data || []);
-      } catch (error) {
-        console.error("Error fetching patients:", error);
-      }
+      axios
+        .get("/api/patients/get-patients")
+        .then((response) => {
+          response.data.data && setPatients(response?.data?.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching patients:", error);
+        });
     }
 
     getPatients();
-  }, [showForm]);
+  }, [showForm, patients]);
 
   const filteredPatients =
     patients?.filter((patient) =>
@@ -215,7 +226,7 @@ const Patients = () => {
           filteredPatients.map((patient, index) => (
             <motion.div
               key={index}
-              className="bg-white p-6 rounded-lg shadow-lg"
+              className={`bg-white p-6 rounded-lg shadow-lg `}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}

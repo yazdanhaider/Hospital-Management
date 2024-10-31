@@ -43,7 +43,7 @@ const Patients = () => {
         );
         return;
       }
-      const contactRegex = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/;
+      const contactRegex = /^[0-9]{3}[0-9]{3}[0-9]{4}$/;
 
       if (newPatient.mobile && !contactRegex.test(newPatient.mobile)) {
         alert(
@@ -52,13 +52,14 @@ const Patients = () => {
         return;
       }
 
-      const response = await axios.post("/api/patients/register", {
-        name: newPatient.name,
-        age: newPatient.age,
-        gender: newPatient.gender,
-        mobile: newPatient.mobile,
-        email: newPatient.email,
-      });
+      // const response = await axios.post("/api/patients/register", {
+      //   name: newPatient.name,
+      //   age: newPatient.age,
+      //   gender: newPatient.gender,
+      //   mobile: newPatient.mobile,
+      //   email: newPatient.email,
+      // });
+      setPatients([newPatient, ...patients]);
       setShowForm(false);
       setNewPatient({
         name: "",
@@ -87,21 +88,23 @@ const Patients = () => {
 
   useEffect(() => {
     async function getPatients() {
-      axios.get("/api/patients/get-patients")
-      .then(response => {
-       response.data.data && setPatients(response?.data?.data);       
-      })
-      .catch(error => {
-        console.error("Error fetching patients:", error);
-      });
+      axios
+        .get("/api/patients/get-patients")
+        .then((response) => {
+          response.data.data && setPatients(response?.data?.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching patients:", error);
+        });
     }
 
     getPatients();
   }, [showForm, patients]);
 
-  const filteredPatients =  patients?.filter((patient) =>
-    patient.name.toLowerCase().includes(searchTerm.toLowerCase())
-  ) || patients;
+  const filteredPatients =
+    patients?.filter((patient) =>
+      patient.name.toLowerCase().includes(searchTerm.toLowerCase())
+    ) || patients;
 
   return (
     <div className="bg-light min-h-screen p-4 sm:p-8">
@@ -198,35 +201,35 @@ const Patients = () => {
       )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredPatients && filteredPatients.length > 0 && filteredPatients.map((patient, index) => (
-          <motion.div
-            key={index}
-            className={`bg-white p-6 rounded-lg shadow-lg ${
-              index === 0 ? "md:col-span-2" : ""
-            }`}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            <h3 className="text-xl font-semibold text-primary mb-2">
-              {patient.name}
-            </h3>
-            <p className="text-gray-600 mb-1">Age: {patient.age}</p>
-            <p className="text-gray-600 mb-1">Gender: {patient.gender}</p>
-            <p className="text-gray-600 mb-4">Contact: {patient.mobile}</p>
-            <div className="flex justify-end">
-              <button className="text-blue-500 mr-2">
-                <FaEdit />
-              </button>
-              <button
-                className="text-red-500"
-                onClick={() => deletePatient(patient._id)}
-              >
-                <FaTrash />
-              </button>
-            </div>
-          </motion.div>
-        ))}
+        {filteredPatients &&
+          filteredPatients.length > 0 &&
+          filteredPatients.map((patient, index) => (
+            <motion.div
+              key={index}
+              className={`bg-white p-6 rounded-lg shadow-lg `}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <h3 className="text-xl font-semibold text-primary mb-2">
+                {patient.name}
+              </h3>
+              <p className="text-gray-600 mb-1">Age: {patient.age}</p>
+              <p className="text-gray-600 mb-1">Gender: {patient.gender}</p>
+              <p className="text-gray-600 mb-4">Contact: {patient.mobile}</p>
+              <div className="flex justify-end">
+                <button className="text-blue-500 mr-2">
+                  <FaEdit />
+                </button>
+                <button
+                  className="text-red-500"
+                  onClick={() => deletePatient(patient._id)}
+                >
+                  <FaTrash />
+                </button>
+              </div>
+            </motion.div>
+          ))}
       </div>
     </div>
   );

@@ -52,13 +52,14 @@ const Patients = () => {
         return;
       }
 
-      const response = await axios.post("/api/patients/register", {
-        name: newPatient.name,
-        age: newPatient.age,
-        gender: newPatient.gender,
-        mobile: newPatient.mobile,
-        email: newPatient.email,
-      });
+      // const response = await axios.post("/api/patients/register", {
+      //   name: newPatient.name,
+      //   age: newPatient.age,
+      //   gender: newPatient.gender,
+      //   mobile: newPatient.mobile,
+      //   email: newPatient.email,
+      // });
+      setPatients([newPatient, ...patients]);
       setShowForm(false);
       setNewPatient({
         name: "",

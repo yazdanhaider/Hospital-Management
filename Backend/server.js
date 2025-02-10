@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/patients', patientRoutes);
-
+console.log(mongoDBUrl)
 mongoose
   .connect(mongoDBUrl)
   .then(() => {

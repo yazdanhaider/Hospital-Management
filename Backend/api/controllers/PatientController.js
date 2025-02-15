@@ -7,9 +7,8 @@ import { v4 as uuidv4 } from "uuid";
 // Register a new patient
 export const registerPatient = async (req, res) => {
   try {
+    console.log("Request received:", req.body);
     const { name, email, gender, mobile, age } = req.body;
-
-    console.log(req.body);
 
     // Check if the patient already exists
     const existingPatient = await Patient.findOne({ email });
@@ -27,11 +26,9 @@ export const registerPatient = async (req, res) => {
       patientId: uuidv4(),
     });
 
-    res
-      .status(201)
-      .json({ message: "Patient registered successfully", newPatient });
+    res.status(201).json({ message: "Patient registered successfully", newPatient });
   } catch (error) {
-    console.error(error);
+    console.error("Error registering patient:", error);
     res.status(500).json({ message: "Server error", error });
   }
 };

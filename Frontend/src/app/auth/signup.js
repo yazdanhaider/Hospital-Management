@@ -9,7 +9,7 @@ export default function Signup() {
 
   async function handleSignup(event) {
     event.preventDefault();
-    const response = await fetch("/api/auth/signup", {
+    const response = await fetch("/api/patients/register", {
       method: "POST",
       body: JSON.stringify({ email, password }),
       headers: { "Content-Type": "application/json" },

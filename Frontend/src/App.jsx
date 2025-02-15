@@ -141,6 +141,7 @@ function App() {
                 path="/doctor/:id"
                 element={<DoctorProfile doctors={doctors} />}
               />
+              <Route path="/home" element={<Home />} />
               <Route path="/admin" element={<Admin />} />
               <Route path="/about-us" element={<AboutUs />} />
               <Route path="/services" element={<Services />} />

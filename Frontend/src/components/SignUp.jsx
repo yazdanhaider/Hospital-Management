@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaUser, FaEnvelope, FaLock, FaPhoneAlt } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
-import PasswordStrengthBar from 'react-password-strength-bar'; // Importing PasswordStrengthBar
+import { Link, useNavigate } from 'react-router-dom';
+import PasswordStrengthBar from 'react-password-strength-bar';
+import axios from 'axios';
 
 const SignUp = () => {
     const [formData, setFormData] = useState({
@@ -11,28 +12,52 @@ const SignUp = () => {
         password: '',
         selectedVal: '',
         phoneNumber: '',
-        file: null, // To store the uploaded file
+        file: null,
     });
+
+    const navigate = useNavigate(); // Initialize navigate
 
     const handleChange = (e) => {
         const { name, value, type, files } = e.target;
         setFormData({ ...formData, [name]: type === 'file' ? files[0] : value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Here you would typically send the form data to your backend
-        console.log('Form submitted:', formData);
-        // Reset form after submission
-        setFormData({
-            fullName: '',
-            email: '',
-            password: '',
-            selectedVal: '',
-            phoneNumber: '',
-            file: null,
-        });
-        // You might want to redirect the user or show a success message here
+
+        const formDataToSend = {
+            name: formData.fullName,
+            email: formData.email,
+            gender: formData.selectedVal,
+            mobile: formData.phoneNumber,
+            age: formData.age,
+        };
+
+        try {
+            const response = await axios.post('http://localhost:6005/api/patients/register', formDataToSend, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            console.log('Patient registered successfully:', response.data);
+            if (response.data.name) {
+                navigate('/home'); // Navigate to /home
+            }
+
+            setFormData({
+                fullName: '',
+                email: '',
+                selectedVal: '',
+                phoneNumber: '',
+                age: '',
+            });
+
+            alert('Patient registered successfully!');
+        } catch (error) {
+            console.error('Error during registration:', error.response?.data || error.message);
+            alert('Registration failed. Please try again.');
+        }
     };
 
     return (
@@ -92,8 +117,6 @@ const SignUp = () => {
                                 required
                             />
                         </div>
-
-                        {/* Password Strength Checker */}
                         <PasswordStrengthBar password={formData.password} />
                     </div>
                     <div>
